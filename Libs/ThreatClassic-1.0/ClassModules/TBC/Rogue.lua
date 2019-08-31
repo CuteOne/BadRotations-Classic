@@ -1,7 +1,13 @@
 local MAJOR_VERSION = "Threat-2.0"
 local MINOR_VERSION = 90000 + tonumber(("$Revision: 7 $"):match("%d+"))
 
+if _G.ThreatLib_MINOR_VERSION == nil then _G.ThreatLib_MINOR_VERSION = 0 end
 if MINOR_VERSION > _G.ThreatLib_MINOR_VERSION then _G.ThreatLib_MINOR_VERSION = MINOR_VERSION end
+
+local lib, oldminor = LibStub:NewLibrary(MAJOR_VERSION, MINOR_VERSION)
+if not lib then
+    return
+end
 
 if select(2, UnitClass("player")) ~= "ROGUE" then return end
 
