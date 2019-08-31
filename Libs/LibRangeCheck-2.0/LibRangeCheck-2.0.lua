@@ -1003,7 +1003,7 @@ function lib:activate()
         self.frame = frame
         frame:RegisterEvent("LEARNED_SPELL_IN_TAB")
         frame:RegisterEvent("CHARACTER_POINTS_CHANGED")
-        frame:RegisterEvent("PLAYER_TALENT_UPDATE")
+        -- frame:RegisterEvent("PLAYER_TALENT_UPDATE")
         -- frame:RegisterEvent("GLYPH_ADDED")
         -- frame:RegisterEvent("GLYPH_REMOVED")
         -- frame:RegisterEvent("GLYPH_UPDATED")

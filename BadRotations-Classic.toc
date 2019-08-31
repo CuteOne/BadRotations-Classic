@@ -64,6 +64,9 @@ Libs\LibStub\LibStub.lua
 Libs\CallbackHandler-1.0\CallbackHandler-1.0.lua
 Libs\LibSharedMedia-3.0\LibSharedMedia-3.0.lua
 
+## Libs\ThreatClassic-1.0\ThreatClassic-1.0.lua
+Libs\ThreatClassic-1.0\lib.xml
+
 Libs\DiesalTools-1.0\DiesalTools-1.0.lua
 Libs\DiesalStyle-1.0\DiesalStyle-1.0.lua
 Libs\DiesalGUI-1.0\DiesalGUI-1.0.xml
