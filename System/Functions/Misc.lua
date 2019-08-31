@@ -562,7 +562,7 @@ function pause(skipCastingCheck)
 		SpellIsTargeting() or
 		-- or (not UnitCanAttack("player","target") and not UnitIsPlayer("target") and GetUnitExists("target"))
 		-- (CastingInfo() and not skipCastingCheck) or
-		-- (UnitChannelInfo("player") and not skipCastingCheck) or
+		-- (ChannelInfo() and not skipCastingCheck) or
 		UnitIsDeadOrGhost("player") or
 		-- or (UnitIsDeadOrGhost("target") and not UnitIsPlayer("target"))
 		UnitBuffID("player", 257427) or -- Eating
@@ -573,7 +573,7 @@ function pause(skipCastingCheck)
 		-- or (((UnitHealth("target")/UnitHealthMax("target"))*100) > 10 and UnitBuffID("target",143593)) --Defensive Stance - General Nagrazim
 		-- or UnitBuffID("target",140296) --Conductive Shield - Thunder Lord / Lightning Guardian
 	then
-		if (CastingInfo() and not skipCastingCheck) or (UnitChannelInfo("player") and not skipCastingCheck) then
+		if (CastingInfo() and not skipCastingCheck) or (ChannelInfo() and not skipCastingCheck) then
 			return true
 		else
 			ChatOverlay("Profile Paused")

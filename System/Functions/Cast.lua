@@ -460,8 +460,8 @@ function isCastingTime(lagTolerance)
 		if select(5,CastingInfo()) - GetTime() <= lagTolerance then
 			return true
 		end
-	elseif UnitChannelInfo("player") ~= nil then
-		if select(5,UnitChannelInfo("player")) - GetTime() <= lagTolerance then
+	elseif ChannelInfo() ~= nil then
+		if select(5,ChannelInfo()) - GetTime() <= lagTolerance then
 			return true
 		end
 	elseif (GetSpellCooldown(GetSpellInfo(61304)) ~= nil and GetSpellCooldown(GetSpellInfo(61304)) <= lagTolerance) then

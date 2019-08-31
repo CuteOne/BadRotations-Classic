@@ -35,8 +35,8 @@ function shouldStopCasting(Spell)
 		end
 		if CastingInfo() then
 			PlayerCastEnd = select(5,CastingInfo())
-		elseif UnitChannelInfo("player") then
-			PlayerCastEnd = select(5,UnitChannelInfo("player"))
+		elseif ChannelInfo() then
+			PlayerCastEnd = select(5,ChannelInfo())
 		else
 			PlayerCastEnd = MySpellCastTime
 		end
@@ -47,7 +47,7 @@ function shouldStopCasting(Spell)
 				return false
 			end
 		end
-		if not CastingInfo() and not UnitChannelInfo("player") and MySpellCastTime and SetStopTime
+		if not CastingInfo() and not ChannelInfo() and MySpellCastTime and SetStopTime
 			and MySpellCastTime > Boss1CastEnd then
 			ChatOverlay("\124cFFD93B3BStop for "..Boss1Cast)
 			return true

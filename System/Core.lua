@@ -152,7 +152,7 @@ function BadRotationsUpdate(self)
 
 					--Quaking helper
 					if getOptionCheck("Quaking Helper") then
-						if (UnitChannelInfo("player") or CastingInfo()) and getDebuffRemain("player", 240448) < 0.5 and getDebuffRemain("player", 240448) > 0 then
+						if (ChannelInfo() or CastingInfo()) and getDebuffRemain("player", 240448) < 0.5 and getDebuffRemain("player", 240448) > 0 then
 							RunMacroText("/stopcasting")
 						end
 					end

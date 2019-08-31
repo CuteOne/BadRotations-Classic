@@ -380,7 +380,6 @@ function br.loader:new(spec,specName)
             -- Call baseUpdate()
             if not UnitAffectingCombat("player") then self.updateOOC() end
             self.baseUpdate()
-            self.getBleeds()
             -- Update Player Info on Init, Talent, and Level Change
             if br.updatePlayerInfo then getSpellsForSpec(spec); getTalentInfo(); getFunctions(); br.updatePlayerInfo = false end
             self.getToggleModes()

@@ -114,7 +114,7 @@ function br.smartQueue()
         br.queueSpell = false
     end
 
-    if ((br.queueSpell and isChecked("Smart Queue") and (GetTime() - queueSpellTime) <= getOptionValue("Smart Queue") and not UnitChannelInfo("player") and (UnitIsVisible(queueSpellTarget) or getOptionValue(GetSpellInfo(br.queueSpell) .. " (Queue)") == 2) and UnitAffectingCombat("player")) or
+    if ((br.queueSpell and isChecked("Smart Queue") and (GetTime() - queueSpellTime) <= getOptionValue("Smart Queue") and not ChannelInfo() and (UnitIsVisible(queueSpellTarget) or getOptionValue(GetSpellInfo(br.queueSpell) .. " (Queue)") == 2) and UnitAffectingCombat("player")) or
     (IsAoEPending() and isChecked("Smart Queue") and isChecked(GetSpellInfo(GetTargetingSpell()) .. " (Queue)") and UnitAffectingCombat("player"))) and (br.queueSpell ~= 1776 or getFacing("target", "player")) then
 		if IsAoEPending() and getOptionValue(GetSpellInfo(GetTargetingSpell()) .. " (Queue)") ~= 3 then
             local pendingSpell = GetTargetingSpell()
