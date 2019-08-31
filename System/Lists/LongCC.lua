@@ -2,8 +2,6 @@ if br.lists == nil then
 	br.lists = {}
 end
 br.lists.longCC = {
-	[207167] = true, -- Death Knight -- Blinding Sleet
-	[217832] = true, -- Demon Hunter -- Imprison
 	[339] = true, -- Druid - Entangling Roots
 	[99] = true, -- Druid - Incapacitating Roar
 	[102359] = true, -- Druid - Mass Entanglement
@@ -27,7 +25,6 @@ br.lists.longCC = {
 	[118] = true, -- Mage - Polymorph (Sheep)
 	[61780] = true, -- Mage - Polymorph (Turkey)
 	[28271] = true, -- Mage - Polymorph (Turtle)
-	[115078] = true, -- Monk - Paralysis
 	[20066] = true, -- Paladin - Repentance
 	[8122] = true, -- Priest - Psychic Scream
 	[9484] = true, -- Priest - Shackle Undead
