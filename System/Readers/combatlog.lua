@@ -426,55 +426,55 @@ function br.read.combatLog()
         -----------
         -- Kitty ---------------
         --[[ Bleed Recorder --]]
-        if GetSpecialization() == 2 then
-            if source == UnitGUID("player") then
-                if destination ~= nil and destination ~= "" then
-                    local thisUnit = thisUnit
-                    if EWT then
-                        local destination = GetObjectWithGUID(destination)
-                        if GetObjectExists(destination) then
-                            thisUnit = destination
-                        elseif GetObjectExists("target") then
-                            thisUnit = GetObjectWithGUID(UnitGUID("target"))
-                        else
-                            thisUnit = GetObjectWithGUID(UnitGUID("player"))
-                        end
-                        if br.player ~= nil and getDistance(thisUnit) < 40 then
-                            local debuff = br.player.debuff
-                            local debuffID = br.player["spell"].debuffs
-                            if debuffID ~= nil then
-                                if spell == debuffID.rake or spell == debuffID.rip then
-                                    if spell == debuffID.rake then
-                                        k = "rake"
-                                    end
-                                    if spell == debuffID.rip then
-                                        k = "rip"
-                                    end
-                                    if debuff[k].bleed == nil then
-                                        debuff[k].bleed = {}
-                                    end
-                                    if debuff[k].bleed[thisUnit] == nil then
-                                        debuff[k].bleed[thisUnit] = 0
-                                    end
-                                    if param == "SPELL_AURA_REMOVED" then
-                                        debuff[k].bleed[thisUnit] = 0
-                                        if GetUnitIsUnit(thisUnit, "target") then
-                                            debuff[k].bleed["target"] = 0
-                                        end
-                                    end
-                                    if param == "SPELL_AURA_APPLIED" or param == "SPELL_AURA_REFRESH" then
-                                        debuff[k].bleed[thisUnit] = debuff[k].calc()
-                                        if GetUnitIsUnit(thisUnit, "target") then
-                                            debuff[k].bleed["target"] = debuff[k].calc()
-                                        end
-                                    end
-                                end
-                            end
-                        end
-                    end
-                end
-            end
-        end
+        -- if GetSpecialization() == 2 then
+        --     if source == UnitGUID("player") then
+        --         if destination ~= nil and destination ~= "" then
+        --             local thisUnit = thisUnit
+        --             if EWT then
+        --                 local destination = GetObjectWithGUID(destination)
+        --                 if GetObjectExists(destination) then
+        --                     thisUnit = destination
+        --                 elseif GetObjectExists("target") then
+        --                     thisUnit = GetObjectWithGUID(UnitGUID("target"))
+        --                 else
+        --                     thisUnit = GetObjectWithGUID(UnitGUID("player"))
+        --                 end
+        --                 if br.player ~= nil and getDistance(thisUnit) < 40 then
+        --                     local debuff = br.player.debuff
+        --                     local debuffID = br.player["spell"].debuffs
+        --                     if debuffID ~= nil then
+        --                         if spell == debuffID.rake or spell == debuffID.rip then
+        --                             if spell == debuffID.rake then
+        --                                 k = "rake"
+        --                             end
+        --                             if spell == debuffID.rip then
+        --                                 k = "rip"
+        --                             end
+        --                             if debuff[k].bleed == nil then
+        --                                 debuff[k].bleed = {}
+        --                             end
+        --                             if debuff[k].bleed[thisUnit] == nil then
+        --                                 debuff[k].bleed[thisUnit] = 0
+        --                             end
+        --                             if param == "SPELL_AURA_REMOVED" then
+        --                                 debuff[k].bleed[thisUnit] = 0
+        --                                 if GetUnitIsUnit(thisUnit, "target") then
+        --                                     debuff[k].bleed["target"] = 0
+        --                                 end
+        --                             end
+        --                             if param == "SPELL_AURA_APPLIED" or param == "SPELL_AURA_REFRESH" then
+        --                                 debuff[k].bleed[thisUnit] = debuff[k].calc()
+        --                                 if GetUnitIsUnit(thisUnit, "target") then
+        --                                     debuff[k].bleed["target"] = debuff[k].calc()
+        --                                 end
+        --                             end
+        --                         end
+        --                     end
+        --                 end
+        --             end
+        --         end
+        --     end
+        -- end
         -----------------------
         --[[ Moonkin ]]
         if shroomsTable == nil then

@@ -21,35 +21,15 @@ if br.api == nil then br.api = {} end
     -- arcaneCharges
     -- fury
     -- pain
-br.api.power = function(power,v)
+    br.api.power = function(power,v)
     local isDKRunes = select(2,UnitClass("player")) == "DEATHKNIGHT" and v == 5
     -- br.player.power.spell.amount() - Returns current amount of the specified power
     power.amount = function()
-        if isDKRunes then
-            local runeCount = 0
-            for i = 1, 6 do
-                runeCount = runeCount + GetRuneCount(i)
-            end
-            return runeCount
-        else
-            return getPower("player",v)
-        end
+        return getPower("player",v)
     end
     -- br.player.power.spell.deficit() - Returns amount of specified power until max is reached
     power.deficit = function()
         return getPowerMax("player",v) - getPower("player",v)
-    end
-    -- br.player.power.spell.frac() - Used by DKs to return fractional counts of their available runes
-    power.frac = function()
-        if isDKRunes then
-            local runeCount = 0
-            for i = 1, 6 do
-                runeCount = runeCount + GetRuneCount(i)
-            end
-            return runeCount + math.max(runeCDPercent(1),runeCDPercent(2),runeCDPercent(3),runeCDPercent(4),runeCDPercent(5),runeCDPercent(6))
-        else
-            return 0
-        end
     end
     -- br.player.power.spell.max() - Returns maximum amount of the specified power
     power.max = function()
@@ -69,11 +49,6 @@ br.api.power = function(power,v)
     end
     -- br.player.power.spell.ttm() -- Returns the time in seconds until the specified power is maxed
     power.ttm = function(amount)
-        if amount == nil then amount = 6 end
-        if isDKRunes then
-            return runeTimeTill(amount)
-        else
-            return getTimeToMax("player")
-        end
+        return getTimeToMax("player")
     end
 end

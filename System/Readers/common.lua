@@ -20,18 +20,18 @@ function br.read.commonReaders()
 		-- Print(...)
 	end
 	frame:SetScript("OnEvent", lostControl)
-	----------------
-	--[[ Auto Join]]
-	Frame = CreateFrame("Frame")
-	Frame:RegisterEvent("LFG_PROPOSAL_SHOW")
-	local function MerchantShow(self, event, ...)
-		if getOptionCheck("Accept Queues") == true then
-			if event == "LFG_PROPOSAL_SHOW" then
-				readyToAccept = GetTime()
-			end
-		end
-	end
-	Frame:SetScript("OnEvent", MerchantShow)
+	-- ----------------
+	-- --[[ Auto Join]]
+	-- Frame = CreateFrame("Frame")
+	-- Frame:RegisterEvent("LFG_PROPOSAL_SHOW")
+	-- local function MerchantShow(self, event, ...)
+	-- 	if getOptionCheck("Accept Queues") == true then
+	-- 		if event == "LFG_PROPOSAL_SHOW" then
+	-- 			readyToAccept = GetTime()
+	-- 		end
+	-- 	end
+	-- end
+	-- Frame:SetScript("OnEvent", MerchantShow)
 	--------------
 	-- --[[ Eclipse]] -- Errors in Patch 8.0 (BfA)
 	-- local Frame = CreateFrame('Frame')
@@ -304,19 +304,19 @@ function br.read.commonReaders()
 	superReaderFrame:RegisterEvent("UNIT_POWER_UPDATE")
 	superReaderFrame:RegisterEvent("ENCOUNTER_START")
 	superReaderFrame:RegisterEvent("ENCOUNTER_END")
-	superReaderFrame:RegisterUnitEvent("AZERITE_EMPOWERED_ITEM_SELECTION_UPDATED")
-	superReaderFrame:RegisterUnitEvent("AZERITE_ESSENCE_ACTIVATED")
+	-- superReaderFrame:RegisterUnitEvent("AZERITE_EMPOWERED_ITEM_SELECTION_UPDATED")
+	-- superReaderFrame:RegisterUnitEvent("AZERITE_ESSENCE_ACTIVATED")
 	superReaderFrame:RegisterUnitEvent("PLAYER_EQUIPMENT_CHANGED")
 	superReaderFrame:RegisterUnitEvent("PLAYER_LEVEL_UP")
-	superReaderFrame:RegisterUnitEvent("PLAYER_TALENT_UPDATE")
+	-- superReaderFrame:RegisterUnitEvent("PLAYER_TALENT_UPDATE")
 	superReaderFrame:RegisterUnitEvent("UI_ERROR_MESSAGE")
 	superReaderFrame:RegisterEvent("LOADING_SCREEN_ENABLED")
 	superReaderFrame:RegisterEvent("LOADING_SCREEN_DISABLED")
 	local function SuperReader(self, event, ...)
-		-- Azerite Essence
-		if event == "AZERITE_ESSENCE_ACTIVATED" then
-			br.updatePlayerInfo = true
-		end
+		-- -- Azerite Essence
+		-- if event == "AZERITE_ESSENCE_ACTIVATED" then
+		-- 	br.updatePlayerInfo = true
+		-- end
 		-- Warlock Soul Shards
 		if event == "UNIT_POWER_UPDATE" and select(2, ...) == "SOUL_SHARDS" then
 			shards = WarlockPowerBar_UnitPower("player")
@@ -341,7 +341,7 @@ function br.read.commonReaders()
 		-- if event == "PLAYER_TALENT_UPDATE" and select(2, GetSpecializationInfo(GetSpecialization())) == br.selectedSpec then
 		-- 	br.rotationChanged = true
 		-- end
-		if event == "PLAYER_TALENT_UPDATE" or event == "PLAYER_LEVEL_UP" or event == "PLAYER_EQUIPMENT_CHANGED" or event == "AZERITE_EMPOWERED_ITEM_SELECTION_UPDATED" then
+		if --[[event == "PLAYER_TALENT_UPDATE" or]] event == "PLAYER_LEVEL_UP" or event == "PLAYER_EQUIPMENT_CHANGED" then --or event == "AZERITE_EMPOWERED_ITEM_SELECTION_UPDATED" then
 			br.updatePlayerInfo = true
 		end
 		-------------------------------------------------
