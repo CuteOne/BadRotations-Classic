@@ -140,7 +140,7 @@ ThreatLib.DebugEnabled = false
 ThreatLib.alwaysRunOnSolo = false
 
 ThreatLib.prefix = "TC1"
-ThreatLib.userAgent = "ThreatClassic-1.0"
+ThreatLib.userAgent = "ThreatClassicBR-1.0"
 ThreatLib:RegisterMemoizations({
 	CLIENT_INFO 			= "CI",
 	LEFT_COMBAT 			= "LC",
@@ -163,7 +163,7 @@ local initialized = false -- hack for upgrading, is local so that each upgrade o
 function ThreatLib:OnInitialize()
 	self:UnregisterAllComm()
 	self:RegisterComm(self.prefix)
-	self.latestSeenRevision = select(2, LibStub("ThreatClassic-1.0"))
+	self.latestSeenRevision = select(2, LibStub("ThreatClassicBR-1.0"))
 	self.MINOR_VERSION = self.latestSeenRevision
 	initialized = true
 end

@@ -367,7 +367,7 @@ end
 
 -- get threat situation on player and return the number
 function getThreat()
-    local ThreatLib = LibStub:GetLibrary("ThreatClassic-1.0")
+    local ThreatLib = LibStub:GetLibrary("ThreatClassicBR-1.0")
     if ThreatLib:UnitThreatSituation("player") ~= nil then
         return ThreatLib:UnitThreatSituation("player")
     end

@@ -203,7 +203,7 @@ function hasNoControl(spellID,unit)
 end
 -- if hasThreat("target") then
 function hasThreat(unit,playerUnit)
-	local ThreatLib = LibStub:GetLibrary("ThreatClassic-1.0")
+	local ThreatLib = LibStub:GetLibrary("ThreatClassicBR-1.0")
 	local unitID = getUnitID(unit)
 	local instance = select(2,IsInInstance())
 	if playerUnit == nil then playerUnit = "player" end

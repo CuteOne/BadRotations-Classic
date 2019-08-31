@@ -5,7 +5,7 @@
 -----------------------------------------Bubba's Healing Engine--------------------------------------]]
 if not metaTable1 then
 	-- localizing the commonly used functions while inside loops
-	local ThreatLib = LibStub:GetLibrary("ThreatClassic-1.0")
+	local ThreatLib = LibStub:GetLibrary("ThreatClassicBR-1.0")
 	local getDistance,tinsert,tremove,UnitClass,GetUnitIsUnit = getDistance,tinsert,tremove,UnitClass,GetUnitIsUnit
 	local UnitDebuff,UnitExists,UnitHealth,UnitHealthMax = UnitDebuff,UnitExists,UnitHealth,UnitHealthMax
 	local GetSpellInfo,GetTime,UnitDebuffID,getBuffStacks = GetSpellInfo,GetTime,UnitDebuffID,getBuffStacks
