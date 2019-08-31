@@ -1,4 +1,4 @@
-local MAJOR_VERSION = "ThreatClassic-1.0"
+local MAJOR_VERSION = "ThreatClassicBR-1.0"
 local MINOR_VERSION = 2
 
 if MINOR_VERSION > _G.ThreatLib_MINOR_VERSION then _G.ThreatLib_MINOR_VERSION = MINOR_VERSION end
@@ -170,7 +170,7 @@ local GetTime = _G.GetTime
 local IsEquippedItem = _G.IsEquippedItem
 local UnitLevel = _G.UnitLevel
 local GetNumTalents = _G.GetNumTalents or function() return 51 end -- for when testing in retail
-local UnitGUID = _G.UnitGUID
+-- local UnitGUID = _G.UnitGUID
 local UnitAura = _G.UnitAura
 local GetWeaponEnchantInfo = _G.GetWeaponEnchantInfo
 

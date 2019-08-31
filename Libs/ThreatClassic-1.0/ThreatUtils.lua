@@ -1,4 +1,4 @@
-local MAJOR_VERSION = "ThreatClassic-1.0"
+local MAJOR_VERSION = "ThreatClassicBR-1.0"
 local MINOR_VERSION = 2
 local tconcat = _G.table.concat
 local tostring = _G.tostring

@@ -54,7 +54,7 @@ License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 -------------------------------------------------------------------------------]]
 
-local MAJOR_VERSION = "ThreatClassic-1.0"
+local MAJOR_VERSION = "ThreatClassicBR-1.0"
 local MINOR_VERSION = 2
 
 if _G.ThreatLib_MINOR_VERSION == nil then _G.ThreatLib_MINOR_VERSION = 0 end
@@ -90,7 +90,7 @@ local IsResting = _G.IsResting
 local UnitExists = _G.UnitExists
 local IsInGuild = _G.IsInGuild
 local GetTime = _G.GetTime
-local UnitGUID = _G.UnitGUID
+-- local UnitGUID = _G.UnitGUID
 local UnitIsUnit = _G.UnitIsUnit
 local UnitClass = _G.UnitClass
 local UnitName = _G.UnitName

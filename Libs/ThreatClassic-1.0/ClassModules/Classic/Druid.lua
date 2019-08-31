@@ -1,4 +1,4 @@
-local MAJOR_VERSION = "ThreatClassic-1.0"
+local MAJOR_VERSION = "ThreatClassicBR-1.0"
 local MINOR_VERSION = 2
 
 if MINOR_VERSION > _G.ThreatLib_MINOR_VERSION then _G.ThreatLib_MINOR_VERSION = MINOR_VERSION end
@@ -12,7 +12,7 @@ ThreatLib_funcs[#ThreatLib_funcs + 1] = function()
 	local select = _G.select
 	local GetTalentInfo = _G.GetTalentInfo
 	local GetShapeshiftForm = _G.GetShapeshiftForm
-	local UnitGUID = _G.UnitGUID
+	-- local UnitGUID = _G.UnitGUID
 	local ThreatLib = _G.ThreatLib
 
 	local Druid = ThreatLib:GetOrCreateModule("Player")
