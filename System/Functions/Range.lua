@@ -3,14 +3,9 @@ local testSpell = {
     ["WARRIOR"] = 6552,
     ["PALADIN"] = 35395,
     ["ROGUE"] = 1766,
-    ["DEATHKNIGHT"] = 49998,
-    ["MONK"] = 100780,
     ["SHAMAN"] = 17364,
-    ["DRUIDC"] = 5221,
-    ["DRUIDB"] = 33917,
-    ["DHH"] = 162794,
-    ["DHV"] = 214743,
-    ["SHUNTER"] = 185855
+    ["DRUID"] = 1082,
+    ["HUNTER"] = 185855
 }
 
 function getDistance(Unit1,Unit2,option)
@@ -32,23 +27,8 @@ function getDistance(Unit1,Unit2,option)
 end
 function getDistanceCalc(Unit1,Unit2,option)
     local currentDist = 100
-    local meleeSpell = nil
     local playerClass = select(2,UnitClass("player"))
-    if testSpell[playerClass] ~= nil then
-        meleeSpell = testSpell[playerClass]
-    elseif playerClass == "DRUID" and UnitBuffID("player",768) then
-        meleeSpell = testSpell["DRUIDC"]
-    elseif playerClass == "DRUID" and UnitBuffID("player",5487) then
-        meleeSpell = testSpell["DRUIDB"]
-    elseif select(1,GetSpecializationInfo(GetSpecialization())) == 255 then
-        meleeSpell = testSpell["SHUNTER"]
-    elseif select(1,GetSpecializationInfo(GetSpecialization())) == 263 then
-        meleeSpell = testSpell["SHAMAN"]
-    elseif select(1,GetSpecializationInfo(GetSpecialization())) == 577 then
-        meleeSpell = testSpell["DHH"]
-    elseif select(1,GetSpecializationInfo(GetSpecialization())) == 581 then
-        meleeSpell = testSpell["DHV"]
-    end
+    local meleeSpell = testSpell[playerClass]
     -- If Unit2 is nil we compare player to Unit1
     if Unit2 == nil then
         Unit2 = Unit1
@@ -116,13 +96,14 @@ function getDistanceCalc(Unit1,Unit2,option)
         if option == "dist3" then return dist3 end
         if option == "dist4" then return dist4 end
         if option == "meleeRange" then return meleeRange end
-        if GetSpecializationInfo(GetSpecialization()) == 255 then
-            if dist > meleeRange then
-                currentDist = dist
-            else
-                currentDist = 0
-            end
-        elseif dist > 13 then
+        -- if GetSpecializationInfo(GetSpecialization()) == 255 then
+        --     if dist > meleeRange then
+        --         currentDist = dist
+        --     else
+        --         currentDist = 0
+        --     end
+        -- else
+        if dist > 13 then
             currentDist = dist
         elseif dist2 > 8 and dist3 > 8 then
             currentDist = dist2
