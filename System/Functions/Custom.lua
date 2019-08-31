@@ -367,8 +367,9 @@ end
 
 -- get threat situation on player and return the number
 function getThreat()
-    if UnitThreatSituation("player") ~= nil then
-        return UnitThreatSituation("player")
+    local ThreatLib = LibStub:GetLibrary("ThreatClassic-1.0")
+    if ThreatLib:UnitThreatSituation("player") ~= nil then
+        return ThreatLib:UnitThreatSituation("player")
     end
     -- 0 - Unit has less than 100% raw threat (default UI shows no indicator)
     -- 1 - Unit has 100% or higher raw threat but isn't mobUnit's primary target (default UI shows yellow indicator)

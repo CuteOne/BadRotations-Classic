@@ -152,16 +152,16 @@ function BadRotationsUpdate(self)
 
 					--Quaking helper
 					if getOptionCheck("Quaking Helper") then
-						if (UnitChannelInfo("player") or UnitCastingInfo("player")) and getDebuffRemain("player", 240448) < 0.5 and getDebuffRemain("player", 240448) > 0 then
+						if (UnitChannelInfo("player") or CastingInfo()) and getDebuffRemain("player", 240448) < 0.5 and getDebuffRemain("player", 240448) > 0 then
 							RunMacroText("/stopcasting")
 						end
 					end
 					-- Pause if key press that is not ignored
-					if not GetCurrentKeyBoardFocus() and not isChecked("Queue Casting") and (UnitAffectingCombat("player") or isChecked("Ignore Combat")) and UnitChannelInfo("player") == nil then
-						if rotationPause and not keyPause and GetTime() - rotationPause < getOptionValue("Pause Interval") and (getSpellCD(61304) > 0 or UnitCastingInfo("player") ~= nil) then
+					if not GetCurrentKeyBoardFocus() and not isChecked("Queue Casting") and (UnitAffectingCombat("player") or isChecked("Ignore Combat")) and ChannelInfo() == nil then
+						if rotationPause and not keyPause and GetTime() - rotationPause < getOptionValue("Pause Interval") and (getSpellCD(61304) > 0 or CastingInfo() ~= nil) then
 							keyPause = true
 							return
-						elseif keyPause and getSpellCD(61304) == 0 and not UnitCastingInfo("player") then
+						elseif keyPause and getSpellCD(61304) == 0 and not CastingInfo() then
 							keyPause = false
 							rotationPause = GetTime()
 							return
@@ -198,7 +198,7 @@ function BadRotationsUpdate(self)
 					end
 					-- Load Spec Profiles
 					br.selectedProfile = br.data.settings[br.selectedSpec]["Rotation" .. "Drop"] or 1
-					local playerSpec = GetSpecializationInfo(GetSpecialization())
+					local playerSpec = br.className --GetSpecializationInfo(GetSpecialization())
 					-- Initialize Player
 					if br.player == nil or br.player.profile ~= br.selectedSpec or br.rotationChanged then
 						brLoaded = false
@@ -215,7 +215,7 @@ function BadRotationsUpdate(self)
 						br.rotationChanged = false
 					end
 					-- Queue Casting
-					if (isChecked("Queue Casting") or (br.player ~= nil and br.player.queue ~= 0)) and not UnitChannelInfo("player") then
+					if (isChecked("Queue Casting") or (br.player ~= nil and br.player.queue ~= 0)) and not ChannelInfo() then
 						if castQueue() then
 							return
 						end
@@ -233,7 +233,7 @@ function BadRotationsUpdate(self)
 						br.smartQueue()
 					end
 					-- Update Player
-					if br.player ~= nil and not CanExitVehicle() then --br.debug.cpu.pulse.currentTime/10) then
+					if br.player ~= nil then
 						br.player:update()
 					end
 					-- Healing Engine
@@ -254,12 +254,12 @@ function BadRotationsUpdate(self)
 					-- Auto Loot
 					autoLoot()
 					-- Close windows and swap br.selectedSpec on Spec Change
-					if select(2, GetSpecializationInfo(GetSpecialization())) ~= br.selectedSpec then
+					if br.className ~= br.selectedSpec then
 						-- Closing the windows will save the position
 						br.ui:closeWindow("all")
 						-- Update Selected Spec/Profile
-						br.selectedSpec = select(2, GetSpecializationInfo(GetSpecialization()))
-						br.activeSpecGroup = GetActiveSpecGroup()
+						br.selectedSpec = br.ClassName --select(2, GetSpecializationInfo(GetSpecialization()))
+						br.activeSpecGroup = 1--GetActiveSpecGroup()
 						br:loadSettings()
 						br.rotationChanged = true
 						commandHelp = nil

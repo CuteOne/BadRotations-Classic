@@ -203,6 +203,7 @@ function hasNoControl(spellID,unit)
 end
 -- if hasThreat("target") then
 function hasThreat(unit,playerUnit)
+	local ThreatLib = LibStub:GetLibrary("ThreatClassic-1.0")
 	local unitID = getUnitID(unit)
 	local instance = select(2,IsInInstance())
 	if playerUnit == nil then playerUnit = "player" end
@@ -218,7 +219,7 @@ function hasThreat(unit,playerUnit)
 	else targetFriend = (UnitName(targetUnit) == UnitName("player") or (UnitExists("pet") and UnitName(targetUnit) == UnitName("pet")) or UnitInParty(targetUnit) or UnitInRaid(targetUnit))
 	end
 	local function threatSituation(friendlyUnit,enemyUnit)
-		local _,_,threatPct = UnitDetailedThreatSituation(friendlyUnit,enemyUnit)
+		local _,_,threatPct = ThreatLib:UnitDetailedThreatSituation(friendlyUnit,enemyUnit)
 		if threatPct ~= nil then 
 			if threatPct > 0 then
 				if isChecked("Cast Debug") and not UnitExists("target") then Print(UnitName(enemyUnit).." is threatening "..UnitName(friendlyUnit).."."); end
@@ -249,13 +250,13 @@ function hasThreat(unit,playerUnit)
 	return false
 end
 function isTanking(unit)
-	return UnitThreatSituation("player", unit) ~= nil and UnitThreatSituation("player", unit) >= 2
+	return ThreatLib:UnitThreatSituation("player", unit) ~= nil and ThreatLib:UnitThreatSituation("player", unit) >= 2
 end
 -- if isAggroed("target") then
 function isAggroed(unit)
 	for i = 1, #br.friend do
 		local friend = br.friend[i].unit
-		local threat = select(5,UnitDetailedThreatSituation(friend,unit))
+		local threat = select(5,ThreatLib:UnitDetailedThreatSituation(friend,unit))
 		if threat ~= nil then
 			if threat >= 0 then
 				return true

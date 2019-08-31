@@ -5,6 +5,7 @@
 -----------------------------------------Bubba's Healing Engine--------------------------------------]]
 if not metaTable1 then
 	-- localizing the commonly used functions while inside loops
+	local ThreatLib = LibStub:GetLibrary("ThreatClassic-1.0")
 	local getDistance,tinsert,tremove,UnitClass,GetUnitIsUnit = getDistance,tinsert,tremove,UnitClass,GetUnitIsUnit
 	local UnitDebuff,UnitExists,UnitHealth,UnitHealthMax = UnitDebuff,UnitExists,UnitHealth,UnitHealthMax
 	local GetSpellInfo,GetTime,UnitDebuffID,getBuffStacks = GetSpellInfo,GetTime,UnitDebuffID,getBuffStacks
@@ -353,7 +354,7 @@ if not metaTable1 then
 
                 -- Unit's threat situation(1-4)
                 startTime = debugprofilestop()
-                o.threat = UnitThreatSituation(o.unit)
+                o.threat = ThreatLib:UnitThreatSituation(o.unit)
                 br.debug.cpu.healingEngine.UnitThreatSituation = debugprofilestop()-startTime
 
                 -- Unit HP absolute
@@ -409,7 +410,7 @@ if not metaTable1 then
                 -- distance to player
                 o.distance = o:getUnitDistance()
                 -- Unit's threat situation(1-4)
-                o.threat = UnitThreatSituation(o.unit)
+                o.threat = ThreatLib:UnitThreatSituation(o.unit)
                 -- Unit HP absolute
                 o.hpabs = UnitHealth(o.unit)
                 -- Unit HP missing absolute
