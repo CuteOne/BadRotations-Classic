@@ -351,7 +351,8 @@ end
 				end
 				-- if threat is checked, add 100 points of prio if we lost aggro on that target
 				if getOptionCheck("Tank Threat") then
-					local threat = UnitThreatSituation("player",unit) or -1
+					local ThreatLib = LibStub:GetLibrary("ThreatClassic-1.0")
+					local threat = ThreatLib:UnitThreatSituation("player",unit) or -1
 					if select(6, GetSpecializationInfo(GetSpecialization())) == "TANK" and threat < 3 and unitHP > 10 then
 						coef = coef + 100 - threat
 					end

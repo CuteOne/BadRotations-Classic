@@ -456,8 +456,8 @@ function castMouseoverHealing(Class)
 end
 function isCastingTime(lagTolerance)
 	local lagTolerance = 0
-	if UnitCastingInfo("player") ~= nil then
-		if select(5,UnitCastingInfo("player")) - GetTime() <= lagTolerance then
+	if CastingInfo() ~= nil then
+		if select(5,CastingInfo()) - GetTime() <= lagTolerance then
 			return true
 		end
 	elseif UnitChannelInfo("player") ~= nil then
@@ -597,7 +597,7 @@ function createCastFunction(thisUnit,debug,minUnits,effectRng,spellID,index,pred
 		local queensCourtEncounter = UnitDebuffID("player",304409) -- EJ_GetEncounterInfo(2311)
 		return queensCourtEncounter == nil or (queensCourtEncounter ~= nil and br.lastCast.tracker[1] ~= spellID)
 	end
-    -- Base Spell Availablility Check
+	-- Base Spell Availablility Check
 	if --[[isChecked("Use: "..spellName) and ]]not select(2,IsUsableSpell(spellID)) and (getSpellCD(61304) == 0 or getSpellCD(spellID) == 0)
 		and (isKnown(spellID) or debug == "known") and hasTalent(spellID) and hasEssence() and queensCourtCastCheck(spellID)--and not isIncapacitated(spellID)
 	then

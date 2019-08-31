@@ -134,7 +134,7 @@ function cCharacter:new(class)
 		self.health 				= getHP("player")
 		self.instance 			= select(2,IsInInstance())
 		self.level 					= UnitLevel("player") -- TODO: EVENT - UNIT_LEVEL
-		self.spec 					= select(2, GetSpecializationInfo(GetSpecialization())) or "None"
+		self.spec 					= br.className --select(2, GetSpecializationInfo(GetSpecialization())) or "None"
 		self.currentPet			= UnitCreatureFamily("pet") or "None"
 		if self.currentPet  ~= "None" then
 		  self.petId 		    = tonumber(UnitGUID("pet"):match("-(%d+)-%x+$"), 10)
@@ -147,7 +147,7 @@ function cCharacter:new(class)
 -- Updates things Out of Combat like Talents, Gear, etc.
 	function self.baseUpdateOOC()
 		-- Update Artifact data
-		if self.artifact.rank == nil then updateArtifact() end
+		-- if self.artifact.rank == nil then updateArtifact() end
 		-- Updates special Equip like set bonuses
 		self.baseGetEquip()
 		if getOptionCheck("Queue Casting") and #self.queue ~= 0 then
@@ -168,12 +168,12 @@ function cCharacter:new(class)
 
 -- Returns the Global Cooldown time
 	function self.getGlobalCooldown(max)
-		local currentSpecName = select(2,GetSpecializationInfo(GetSpecialization()))
+		local currentSpecName = br.className--select(2,GetSpecializationInfo(GetSpecialization()))
 		if max == true then
 			if currentSpecName=="Feral" or currentSpecName=="Brewmaster" or currentSpecName=="Windwalker" or UnitClass("player") == "Rogue" then
 				return 1
 			else
-				return math.max(math.max(1, 1.5 / (1 + UnitSpellHaste("player") / 100)), 0.75)
+				return math.max(math.max(1, 1.5 / (1 + 0--[[UnitSpellHaste("player")]] / 100)), 0.75)
 			end
 		end
 		return getSpellCD(61304)

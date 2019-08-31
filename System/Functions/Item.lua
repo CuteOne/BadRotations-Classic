@@ -149,17 +149,17 @@ end
 -- if TierScan("T17")>=2 then
 function TierScan(thisTier)
 	local equippedItems = 0
-	local myClass = select(2, UnitClass("player"))
-	thisTier = string.upper(thisTier)
-	local sets = br.lists.tier
-	local tierList = sets[thisTier][myClass]
-	if #tierList > 0 then
-		for i = 1, #tierList do
-			if IsEquippedItem(tierList[i]) then
-				equippedItems = equippedItems + 1
-			end
-		end
-	end
+	-- local myClass = select(2, UnitClass("player"))
+	-- thisTier = string.upper(thisTier)
+	-- local sets = br.lists.tier
+	-- local tierList = sets[thisTier][myClass]
+	-- if #tierList > 0 then
+	-- 	for i = 1, #tierList do
+	-- 		if IsEquippedItem(tierList[i]) then
+	-- 			equippedItems = equippedItems + 1
+	-- 		end
+	-- 	end
+	-- end
 	return equippedItems
 end
 

@@ -22,7 +22,6 @@ if br.api == nil then br.api = {} end
     -- fury
     -- pain
     br.api.power = function(power,v)
-    local isDKRunes = select(2,UnitClass("player")) == "DEATHKNIGHT" and v == 5
     -- br.player.power.spell.amount() - Returns current amount of the specified power
     power.amount = function()
         return getPower("player",v)

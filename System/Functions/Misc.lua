@@ -520,7 +520,7 @@ function pause(skipCastingCheck)
 	-- Focused Azerite Beam / Cyclotronic Blast
 	local lastCast = br.lastCast.tracker[1]
 	if br.pauseCast - GetTime() <= 0 then
-		local hasted = (1-UnitSpellHaste("player")/100)
+		local hasted = (1-0/100)
 		if lastCast == 295258 and getSpellCD(295258) == 0 then br.pauseCast = GetTime() + getCastTime(295258) + (getCastTime(295261) * hasted) end
 		if lastCast == 293491 and GetItemCooldown(167555) == 0 then br.pauseCast = GetTime() + getCastTime(293491) + (2.5 * hasted) end
 	end
@@ -561,8 +561,8 @@ function pause(skipCastingCheck)
 		UnitBuffID("player", 157060))) or
 		SpellIsTargeting() or
 		-- or (not UnitCanAttack("player","target") and not UnitIsPlayer("target") and GetUnitExists("target"))
-		(UnitCastingInfo("player") and not skipCastingCheck) or
-		(UnitChannelInfo("player") and not skipCastingCheck) or
+		-- (CastingInfo() and not skipCastingCheck) or
+		-- (UnitChannelInfo("player") and not skipCastingCheck) or
 		UnitIsDeadOrGhost("player") or
 		-- or (UnitIsDeadOrGhost("target") and not UnitIsPlayer("target"))
 		UnitBuffID("player", 257427) or -- Eating
@@ -573,7 +573,7 @@ function pause(skipCastingCheck)
 		-- or (((UnitHealth("target")/UnitHealthMax("target"))*100) > 10 and UnitBuffID("target",143593)) --Defensive Stance - General Nagrazim
 		-- or UnitBuffID("target",140296) --Conductive Shield - Thunder Lord / Lightning Guardian
 	then
-		if (UnitCastingInfo("player") and not skipCastingCheck) or (UnitChannelInfo("player") and not skipCastingCheck) then
+		if (CastingInfo() and not skipCastingCheck) or (UnitChannelInfo("player") and not skipCastingCheck) then
 			return true
 		else
 			ChatOverlay("Profile Paused")
