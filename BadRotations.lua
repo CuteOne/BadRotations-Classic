@@ -120,14 +120,16 @@ frame:RegisterEvent("ADDON_LOADED");
 frame:RegisterEvent("PLAYER_LOGOUT")
 frame:RegisterUnitEvent("PLAYER_ENTERING_WORLD")
 function frame:OnEvent(event, arg1, arg2, arg3, arg4, arg5)
-	if event == "ADDON_LOADED" and arg1 == "BadRotations" then
-		-- Load Settings
-		br.data = deepcopy(brdata)
-		br.dungeon = deepcopy(dungeondata)
-		br.mdungeon = deepcopy(mdungeondata)
-		br.raid = deepcopy(raiddata)
-		br.mraid = deepcopy(mraiddata)
-	end
+	-- if event == "ADDON_LOADED" then --and arg1 == "BadRotations-Classic" then
+	-- 	print(arg1)
+	-- end
+	-- Load Settings
+	-- Print("Loading Saved BR Data")
+	br.data = deepcopy(brdata)
+	br.dungeon = deepcopy(dungeondata)
+	br.mdungeon = deepcopy(mdungeondata)
+	br.raid = deepcopy(raiddata)
+	br.mraid = deepcopy(mraiddata)
     if event == "PLAYER_LOGOUT" then
         br.ui:saveWindowPosition()
         if getOptionCheck("Reset Options") then

@@ -195,6 +195,7 @@ function br.read.commonReaders()
 		if not configReloadTimer or configReloadTimer <= GetTime() - 1 then
 			currentConfig, configReloadTimer = nil, GetTime()
 		end
+		br.updatePlayerInfo = true
 	end
 	Frame:SetScript("OnEvent", SpellsChanged)
 	--- under devlopment not working as of now

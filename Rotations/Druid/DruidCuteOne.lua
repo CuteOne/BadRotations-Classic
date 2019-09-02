@@ -6,35 +6,35 @@ local rotationName = "CuteOne"
 local function createToggles()
 -- Rotation Button
     RotationModes = {
-        [1] = { mode = "Auto", value = 1 , overlay = "Automatic Rotation", tip = "Swaps between Single and Multiple based on number of targets in range.", highlight = 1, icon = br.player.spell.swipeCat },
-        [2] = { mode = "Mult", value = 2 , overlay = "Multiple Target Rotation", tip = "Multiple target rotation used.", highlight = 0, icon = br.player.spell.swipeCat },
+        [1] = { mode = "Auto", value = 1 , overlay = "Automatic Rotation", tip = "Swaps between Single and Multiple based on number of targets in range.", highlight = 1, icon = br.player.spell.swipe },
+        [2] = { mode = "Mult", value = 2 , overlay = "Multiple Target Rotation", tip = "Multiple target rotation used.", highlight = 0, icon = br.player.spell.swipe },
         [3] = { mode = "Sing", value = 3 , overlay = "Single Target Rotation", tip = "Single target rotation used.", highlight = 0, icon = br.player.spell.shred },
-        [4] = { mode = "Off", value = 4 , overlay = "DPS Rotation Disabled", tip = "Disable DPS Rotation", highlight = 0, icon = br.player.spell.regrowth}
+        [4] = { mode = "Off", value = 4 , overlay = "DPS Rotation Disabled", tip = "Disable DPS Rotation", highlight = 0, icon = br.player.spell.healingTouch}
     };
     CreateButton("Rotation",1,0)
 -- Cooldown Button
     CooldownModes = {
-        [1] = { mode = "Auto", value = 1 , overlay = "Cooldowns Automated", tip = "Automatic Cooldowns - Boss Detection.", highlight = 1, icon = br.player.spell.berserk },
-        [2] = { mode = "On", value = 1 , overlay = "Cooldowns Enabled", tip = "Cooldowns used regardless of target.", highlight = 0, icon = br.player.spell.berserk },
-        [3] = { mode = "Off", value = 3 , overlay = "Cooldowns Disabled", tip = "No Cooldowns will be used.", highlight = 0, icon = br.player.spell.berserk }
+        [1] = { mode = "Auto", value = 1 , overlay = "Cooldowns Automated", tip = "Automatic Cooldowns - Boss Detection.", highlight = 1, icon = br.player.spell.tigersFury },
+        [2] = { mode = "On", value = 1 , overlay = "Cooldowns Enabled", tip = "Cooldowns used regardless of target.", highlight = 0, icon = br.player.spell.tigersFury },
+        [3] = { mode = "Off", value = 3 , overlay = "Cooldowns Disabled", tip = "No Cooldowns will be used.", highlight = 0, icon = br.player.spell.tigersFury }
     };
    	CreateButton("Cooldown",2,0)
 -- Defensive Button
     DefensiveModes = {
-        [1] = { mode = "On", value = 1 , overlay = "Defensive Enabled", tip = "Includes Defensive Cooldowns.", highlight = 1, icon = br.player.spell.survivalInstincts },
-        [2] = { mode = "Off", value = 2 , overlay = "Defensive Disabled", tip = "No Defensives will be used.", highlight = 0, icon = br.player.spell.survivalInstincts }
+        [1] = { mode = "On", value = 1 , overlay = "Defensive Enabled", tip = "Includes Defensive Cooldowns.", highlight = 1, icon = br.player.spell.cower },
+        [2] = { mode = "Off", value = 2 , overlay = "Defensive Disabled", tip = "No Defensives will be used.", highlight = 0, icon = br.player.spell.cower }
     };
     CreateButton("Defensive",3,0)
 -- Interrupt Button
     InterruptModes = {
-        [1] = { mode = "On", value = 1 , overlay = "Interrupts Enabled", tip = "Includes Basic Interrupts.", highlight = 1, icon = br.player.spell.maim },
-        [2] = { mode = "Off", value = 2 , overlay = "Interrupts Disabled", tip = "No Interrupts will be used.", highlight = 0, icon = br.player.spell.maim }
+        [1] = { mode = "On", value = 1 , overlay = "Interrupts Enabled", tip = "Includes Basic Interrupts.", highlight = 1, icon = br.player.spell.bash },
+        [2] = { mode = "Off", value = 2 , overlay = "Interrupts Disabled", tip = "No Interrupts will be used.", highlight = 0, icon = br.player.spell.bash }
     };
     CreateButton("Interrupt",4,0)
 -- Cleave Button
 	CleaveModes = {
-        [1] = { mode = "On", value = 1 , overlay = "Cleaving Enabled", tip = "Rotation will cleave targets.", highlight = 1, icon = br.player.spell.swipeCat },
-        [2] = { mode = "Off", value = 2 , overlay = "Cleaving Disabled", tip = "Rotation will not cleave targets", highlight = 0, icon = br.player.spell.swipeCat }
+        [1] = { mode = "On", value = 1 , overlay = "Cleaving Enabled", tip = "Rotation will cleave targets.", highlight = 1, icon = br.player.spell.rake },
+        [2] = { mode = "Off", value = 2 , overlay = "Cleaving Disabled", tip = "Rotation will not cleave targets", highlight = 0, icon = br.player.spell.rake }
     };
     CreateButton("Cleave",5,0)
 -- Prowl Button
@@ -43,13 +43,6 @@ local function createToggles()
         [2] = { mode = "Off", value = 2 , overlay = "Prowl Disabled", tip = "Rotation will not use Prowl", highlight = 0, icon = br.player.spell.prowl }
     };
     CreateButton("Prowl",6,0)
--- Form Button
-    FormModes = {
-        [1] = { mode = "Cat", value = 1 , overlay = "Cat Form", tip = "Rotation will use Cat Form", highlight = 1, icon = br.player.spell.catForm },
-        [2] = { mode = "Bear", value = 2 , overlay = "Bear Form", tip = "Rotation will use Bear Form", highlight = 0, icon = br.player.spell.bearForm },
-        [3] = { mode = "Caster", value = 3 , overlay = "Caster Form", tip = "Rotation will use Caster Form", highlight = 0, icon = br.player.spell.moonfire },
-    };
-    CreateButton("Form",7,0)
 end
 
 ---------------
@@ -60,90 +53,84 @@ local function createOptions()
 
     local function rotationOptions()
         local section
-    -- General Options
+        -- General Options
         section = br.ui:createSection(br.ui.window.profile, "General")
-        -- APL
-            br.ui:createDropdownWithout(section, "APL Mode", {"|cffFFFFFFSimC","|cffFFFFFFAMR"}, 1, "|cffFFFFFFSet APL Mode to use.")
-        -- Death Cat
-            br.ui:createCheckbox(section,"Death Cat Mode","|cff15FF00Enable|cffFFFFFF/|cffD60000Disable |cffFFFFFFthis mode when running through low level content where you 1 hit kill mobs.")
-        -- Dummy DPS Test
-            br.ui:createSpinner(section, "DPS Testing",  5,  5,  60,  5,  "|cffFFFFFFSet to desired time for test in minuts. Min: 5 / Max: 60 / Interval: 5")
-        -- Opener
-            br.ui:createCheckbox(section, "Opener")
-            -- Pre-Pull Timer
-            br.ui:createSpinner(section, "Pre-Pull Timer",  5,  1,  10,  1,  "|cffFFFFFFSet to desired time to start Pre-Pull (DBM Required). Min: 1 / Max: 10 / Interval: 1")
-        -- Travel Shapeshifts
+        -- -- APL
+        --     br.ui:createDropdownWithout(section, "APL Mode", {"|cffFFFFFFSimC","|cffFFFFFFAMR"}, 1, "|cffFFFFFFSet APL Mode to use.")
+        -- -- Dummy DPS Test
+        --     br.ui:createSpinner(section, "DPS Testing",  5,  5,  60,  5,  "|cffFFFFFFSet to desired time for test in minuts. Min: 5 / Max: 60 / Interval: 5")
+        -- -- Opener
+        --     br.ui:createCheckbox(section, "Opener")
+            -- -- Pre-Pull Timer
+            -- br.ui:createSpinner(section, "Pre-Pull Timer",  5,  1,  10,  1,  "|cffFFFFFFSet to desired time to start Pre-Pull (DBM Required). Min: 1 / Max: 10 / Interval: 1")
+        -- Auto Shapeshifts
             br.ui:createCheckbox(section,"Auto Shapeshifts","|cff15FF00Enables|cffFFFFFF/|cffD60000Disables |cffFFFFFFAuto Shapeshifting to best form for situation.|cffFFBB00.")
-        -- Fall Timer
-            br.ui:createSpinnerWithout(section,"Fall Timer", 2, 1, 5, 0.25, "|cffFFFFFFSet to desired time to wait until shifting to flight form when falling (in secs).")
-        -- Break Crowd Control
-            br.ui:createCheckbox(section,"Break Crowd Control","|cff15FF00Enables|cffFFFFFF/|cffD60000Disables |cffFFFFFFAuto Shapeshifting to break crowd control.|cffFFBB00.")
+        -- -- Fall Timer
+        --     br.ui:createSpinnerWithout(section,"Fall Timer", 2, 1, 5, 0.25, "|cffFFFFFFSet to desired time to wait until shifting to flight form when falling (in secs).")
+        -- -- Break Crowd Control
+        --     br.ui:createCheckbox(section,"Break Crowd Control","|cff15FF00Enables|cffFFFFFF/|cffD60000Disables |cffFFFFFFAuto Shapeshifting to break crowd control.|cffFFBB00.")
         br.ui:checkSectionState(section)
-    -- Cooldown Options
+        -- Buffs
+        section = br.ui:createSection(br.ui.window.profile, "Buffs")
+            -- Mark of the Wild
+            br.ui:createDropdownWithout(section, "Mark of the Wild", {"|cff00FF00Any", "|cffFFFF00Player Only", "|cffFF0000None"}, 2, "|cffFFFFFFHow to use Mark of the Wild.")
+            -- Thorns
+            br.ui:createDropdownWithout(section, "Thorns", {"|cff00FF00Any", "|cffFFFF00Player Only", "|cffFF0000None"}, 2, "|cffFFFFFFHow to use Thorns.")
+        br.ui:checkSectionState(section)
+        -- Cooldown Options
         section = br.ui:createSection(br.ui.window.profile, "Cooldowns")
-        -- Potion
-            br.ui:createCheckbox(section,"Potion")
-        -- Elixir
-            br.ui:createDropdownWithout(section,"Elixir", {"Flask of Seventh Demon","Repurposed Fel Focuser","Oralius' Whispering Crystal","None"}, 1, "|cffFFFFFFSet Elixir to use.")
-        -- Racial
-            br.ui:createCheckbox(section,"Racial")
-        -- Tiger's Fury
-            br.ui:createCheckbox(section,"Tiger's Fury")
-        -- Berserk
-            br.ui:createCheckbox(section,"Berserk")
-        -- Trinkets
-            br.ui:createDropdownWithout(section,"Trinkets", {"|cff00FF00Everything","|cffFFFF00Cooldowns","|cffFF0000Never"}, 1, "|cffFFFFFFWhen to use Trinkets.")
+            -- -- Potion
+            -- br.ui:createCheckbox(section,"Potion")
+            -- -- Elixir
+            -- br.ui:createDropdownWithout(section,"Elixir", {"Flask of Seventh Demon","Repurposed Fel Focuser","Oralius' Whispering Crystal","None"}, 1, "|cffFFFFFFSet Elixir to use.")
+            -- -- Racial
+            -- br.ui:createCheckbox(section,"Racial")
+            -- -- Tiger's Fury
+            -- br.ui:createCheckbox(section,"Tiger's Fury")
+            -- -- Berserk
+            -- br.ui:createCheckbox(section,"Berserk")
+            -- -- Trinkets
+            -- br.ui:createDropdownWithout(section,"Trinkets", {"|cff00FF00Everything","|cffFFFF00Cooldowns","|cffFF0000Never"}, 1, "|cffFFFFFFWhen to use Trinkets.")
         br.ui:checkSectionState(section)
-    -- Defensive Options
+        -- Defensive Options
         section = br.ui:createSection(br.ui.window.profile, "Defensive")
-        -- Rebirth
+            -- Healthstone
+            br.ui:createSpinner(section, "Pot/Stoned",  60,  0,  100,  5,  "|cffFFFFFFHealth Percent to Cast At")
+            -- Healing Touch
+            br.ui:createSpinner(section, "Healing Touch", 80, 0, 100, 5, "|cffFFFFFFHealth Percent to Cast At")
+            -- Regrowth
+            br.ui:createSpinner(section, "Regrowth",  50,  0,  100,  5,  "|cffFFFFFFHealth Percent to Cast At")
+            -- Rejuvenation
+            br.ui:createSpinner(section, "Rejuvenation", 75, 0, 100, 5, "|cffFFFFFFHealth Percent to Cast At")
+            -- Rebirth
             br.ui:createCheckbox(section,"Rebirth")
             br.ui:createDropdownWithout(section, "Rebirth - Target", {"|cff00FF00Target","|cffFF0000Mouseover"}, 1, "|cffFFFFFFTarget to cast on")
-        -- Revive
+            -- Revive
             br.ui:createCheckbox(section,"Revive")
             br.ui:createDropdownWithout(section, "Revive - Target", {"|cff00FF00Target","|cffFF0000Mouseover"}, 1, "|cffFFFFFFTarget to cast on")
-        -- Remove Corruption
-            br.ui:createCheckbox(section,"Remove Corruption")
-            br.ui:createDropdownWithout(section, "Remove Corruption - Target", {"|cff00FF00Player","|cffFFFF00Target","|cffFF0000Mouseover"}, 1, "|cffFFFFFFTarget to cast on")
-        -- Healthstone
-            br.ui:createSpinner(section, "Pot/Stoned",  60,  0,  100,  5,  "|cffFFFFFFHealth Percent to Cast At")
-        -- Survival Instincts
-            br.ui:createSpinner(section, "Survival Instincts",  40,  0,  100,  5,  "|cffFFFFFFHealth Percent to Cast At")
-        -- Healing Touch
-            br.ui:createSpinner(section, "Healing Touch", 80, 0, 100, 5, "|cffFFFFFFHealth Percent to Cast At")
-        -- Regrowth
-            br.ui:createSpinner(section, "Regrowth",  50,  0,  100,  5,  "|cffFFFFFFHealth Percent to Cast At")
-        -- Rejuvenation
-            br.ui:createSpinner(section, "Rejuvenation", 75, 0, 100, 5, "|cffFFFFFFHealth Percent to Cast At")
         br.ui:checkSectionState(section)
-    -- Interrupt Options
+        -- Interrupt Options
         section = br.ui:createSection(br.ui.window.profile, "Interrupts")
-        -- Skull Bash
-            br.ui:createCheckbox(section,"Skull Bash")
-        -- Mighty Bash
-            br.ui:createCheckbox(section,"Mighty Bash")
-        -- Maim
-            br.ui:createCheckbox(section,"Maim")
-        -- Interrupt Percentage
+            -- Interrupt Percentage
             br.ui:createSpinner(section, "Interrupts",  0,  0,  95,  5,  "|cffFFFFFFCast Percent to Cast At")
         br.ui:checkSectionState(section)
-    -- Toggle Key Options
+        -- Toggle Key Options
         section = br.ui:createSection(br.ui.window.profile, "Toggle Keys")
-        -- Single/Multi Toggle
+            -- Single/Multi Toggle
             br.ui:createDropdown(section, "Rotation Mode", br.dropOptions.Toggle,  4)
-        -- Cooldown Key Toggle
+            -- Cooldown Key Toggle
             br.ui:createDropdown(section, "Cooldown Mode", br.dropOptions.Toggle,  3)
-        -- Defensive Key Toggle
+            -- Defensive Key Toggle
             br.ui:createDropdown(section, "Defensive Mode", br.dropOptions.Toggle,  6)
-        -- Interrupts Key Toggle
+            -- Interrupts Key Toggle
             br.ui:createDropdown(section, "Interrupt Mode", br.dropOptions.Toggle,  6)
-        -- Cleave Toggle
+            -- Cleave Toggle
             br.ui:createDropdown(section, "Cleave Mode", br.dropOptions.Toggle,  6)
-        -- Prowl Toggle
+            -- Prowl Toggle
             br.ui:createDropdown(section, "Prowl Mode", br.dropOptions.Toggle,  6)
-        -- Form Toggle
+            -- Form Toggle
             br.ui:createDropdown(section, "Form Mode", br.dropOptions.Toggle, 6)
-        -- Pause Toggle
+            -- Pause Toggle
             br.ui:createDropdown(section, "Pause Mode", br.dropOptions.Toggle,  6)
         br.ui:checkSectionState(section)
     end
@@ -164,16 +151,6 @@ local function runRotation()
 ---------------
 --- Toggles ---
 ---------------
-        UpdateToggle("Rotation",0.25)
-        UpdateToggle("Cooldown",0.25)
-        UpdateToggle("Defensive",0.25)
-        UpdateToggle("Interrupt",0.25)
-        UpdateToggle("Cleave",0.25)
-        br.player.mode.cleave = br.data.settings[br.selectedSpec].toggles["Cleave"]
-        UpdateToggle("Prowl",0.25)
-        br.player.mode.prowl = br.data.settings[br.selectedSpec].toggles["Prowl"]
-        UpdateToggle("Form",0.25)
-        br.player.mode.form = br.data.settings[br.selectedSpec].toggles["Form"]
 
         --------------
         --- Locals ---
@@ -202,6 +179,7 @@ local function runRotation()
         local level
         local lootDelay
         local lowestHP
+        local mana
         local mode
         local multidot
         local opener
@@ -258,6 +236,7 @@ local function runRotation()
         level                              = br.player.level
         lootDelay                          = getOptionValue("LootDelay")
         lowestHP                           = br.friend[1].unit
+        mana                               = br.player.power.mana.amount()
         minCount                           = useCDs() and 1 or 3
         mode                               = br.player.mode
         multidot                           = br.player.mode.cleave == 1 and br.player.mode.rotation < 3
@@ -280,6 +259,7 @@ local function runRotation()
         -- Get Best Unit for Range
         -- units.get(range, aoe)
         units.get(40)
+        units.get(30)
         units.get(8,true)
         units.get(5)
         if range == nil then range = {} end
@@ -303,53 +283,34 @@ local function runRotation()
 		if profileStop == nil then profileStop = false end
 		if lastSpellCast == nil then lastSpellCast = spell.catForm end
         if opener == nil then opener = false end
-        if lastForm == nil then lastForm = 0 end
+        if lastForm == nil then lastForm = "Caster" end
 		if not inCombat and not hastar and profileStop==true then
             profileStop = false
 		end
 
-        if br.player.potion.agility ~= nil then
-            if br.player.potion.agility[1] ~= nil then
-                agiPot = br.player.potion.agility[1].itemID
-            else
-                agiPot = 0
-            end
-        else
-            agiPot = 0
-        end
+        -- if br.player.potion.agility ~= nil then
+        --     if br.player.potion.agility[1] ~= nil then
+        --         agiPot = br.player.potion.agility[1].itemID
+        --     else
+        --         agiPot = 0
+        --     end
+        -- else
+        --     agiPot = 0
+        -- end
 
-        friendsInRange = 0
-        if not solo then
-            for i = 1, #br.friend do
-                if getDistance(br.friend[i].unit) < 15 then
-                    friendsInRange = friendsInRange + 1
-                end
-            end
-        end
+        -- friendsInRange = 0
+        -- if not solo then
+        --     for i = 1, #br.friend do
+        --         if getDistance(br.friend[i].unit) < 15 then
+        --             friendsInRange = friendsInRange + 1
+        --         end
+        --     end
+        -- end
 
         if energy > 50 then
             fbMaxEnergy = true
         else
             fbMaxEnergy = false
-        end
-        -- Opener Reset
-        if not inCombat and not GetObjectExists("target") then
-			openerCount = 0
-            OPN1 = false
-            RK1 = false
-            MF1 = false
-            SR1 = false
-            BER1 = false
-            TF1 = false
-            AF1 = false
-            REG1 = false
-            MF1 = false
-            RIP1 = false
-            THR1 = false
-            SHR1 = false
-            REG2 = false
-            RIP2 = false
-            opener = false
         end
 
         -- for i = 1, #enemies.yards40 do
@@ -359,6 +320,18 @@ local function runRotation()
         --     end
         -- end
 
+        local function cancelForm()
+            if isChecked("Auto Shapeshifts") then
+                if buff.catForm.exists() then
+                    lastForm = "Cat"
+                    CancelShapeshiftForm()
+                end
+                if buff.bearForm.exists() then
+                    lastForm = "Bear"
+                    CancelShapeshiftForm()
+                end
+            end
+        end
         -- ChatOverlay("Mark of the Wild: Refresh: "..tostring(buff.markOfTheWild.refresh())..", Remain: "..buff.markOfTheWild.remain()..", Duration: "..buff.markOfTheWild.duration())
 --------------------
 --- Action Lists ---
@@ -366,16 +339,14 @@ local function runRotation()
 	    -- Action List - Extras
 		local function actionList_Extras()
 		    -- Shapeshift Form Management
-			if isChecked("Auto Shapeshifts") then --and br.timer:useTimer("debugShapeshift", 0.25) then
-                if inCombat or (not inCombat and (isValidUnit("target") or #enemies.yards20 > 0)) then
-                    if cast.able.catForm() and mode.form == 1 and level > 20 and isKnown(spell.catForm) and not buff.catForm.exists() then
-                        if cast.catForm() then return end
+            if isChecked("Auto Shapeshifts") then --and br.timer:useTimer("debugShapeshift", 0.25) then
+                -- Return to Last Form
+                if lastForm ~= "Caster" then
+                    if lastForm == "Bear" then 
+                        if cast.bearForm() then lastForm = "Caster" return end
                     end
-                    if cast.able.bearForm() and level > 10 and not buff.bearForm.exists() and isKnown(spell.bearForm) and (mode.form == 2 or (mode.form == 1 and not isKnown(spell.catForm))) then
-                        if cast.bearForm() then return end
-                    end
-                    if mode.form == 3 or (mode.form == 2 and not isKnown(spell.bearForm)) then
-                        CancelShapeshiftForm();
+                    if lastForm == "Cat" then
+                        if cast.catForm() then lastForm = "Cat" return end
                     end
                 end
 			end -- End Shapeshift Form Management
@@ -394,32 +365,46 @@ local function runRotation()
 	    -- Action List - Defensive
 		local function actionList_Defensive()
 			if useDefensive() and not IsMounted() and not stealth and not buff.prowl.exists() then
-                if not inCombat or not (buff.catForm.exists() or buff.bearForm.exists()) then
-                    -- Cancel Form
-                    if not inCombat and (buff.catForm.exists() or buff.bearForm.exists()) then
-                        CancelShapeshiftForm();
+                -- if not inCombat or not (buff.catForm.exists() or buff.bearForm.exists()) then
+                    -- Entangling Roots
+                    if isChecked("Entangling Roots") and cast.able.entanglingRoots() and not cast.last.entanglingRoots() and inCombat 
+                        and GetUnitSpeed(units.dyn30)>0 and getDistance(units.dyn30) > 8 and not debuff.entanglingRoots.exists(units.dyn30)
+                    then
+                        cancelForm()
+                        if cast.entanglingRoots() then return end
                     end
                     -- Mark of the Wild
-                    if cast.able.markOfTheWild() and buff.markOfTheWild.refresh() then
-                        if cast.markOfTheWild() then Print("Refresh: "..tostring(buff.markOfTheWild.refresh())..", Remain: "..buff.markOfTheWild.remain()..", Duration: "..buff.markOfTheWild.duration()) return end
+                    if getOptionValue("Mark of the Wild") == 2 and cast.able.markOfTheWild() and not inCombat and buff.markOfTheWild.refresh() then
+                        cancelForm()
+                        if cast.markOfTheWild() then return end
                     end
                     -- Thorns
-                    if cast.able.thorns() and buff.thorns.refresh() then
+                    if getOptionValue("Thorns") == 2 and cast.able.thorns() and inCombat and buff.thorns.refresh() then
+                        cancelForm()
                         if cast.thorns() then return end
                     end
                     -- Rejuvenation
-                    if cast.able.rejuvenation() and not buff.rejuvenation.exists() and php <= getOptionValue("Rejuvenation") then
+                    if isChecked("Rejuvenation") and not inCombat and cast.able.rejuvenation()
+                        and not buff.rejuvenation.exists() and php <= getOptionValue("Rejuvenation")
+                    then
+                        cancelForm()
                         if cast.rejuvenation() then return end
                     end
                     -- Regrowth
-                    if cast.able.regrowth() and not buff.regrowth.exists() and php <= getOptionValue("Regrowth") then
+                    if isChecked("Regrowth") and not inCombat and cast.able.regrowth() and not buff.regrowth.exists()
+                        and php <= getOptionValue("Regrowth")
+                    then
+                        cancelForm()
                         if cast.regrowth() then return end
                     end
                     -- Healing Touch
-                    if cast.able.healingTouch() and php <= getOptionValue("Healing Touch") then
+                    if isChecked("Healing Touch") and cast.able.healingTouch() and ((not inCombat and php <= getOptionValue("Healing Touch"))
+                        or (inCombat and php <= getOptionValue("Healing Touch") / 2))
+                    then
+                        cancelForm()
                         if cast.healingTouch() then return end
                     end
-                end
+                -- end
             end -- End Defensive Toggle
 		end -- End Action List - Defensive
 	    -- Action List - Interrupts
@@ -457,15 +442,19 @@ local function runRotation()
             end
             StartAttack()
             -- Enrage
-            if cast.able.enrage() and rage < 10 then
+            if cast.able.enrage() and rage < 10 and getDistance(units.dyn5) < 8 then
                 if cast.enrage() then return end
             end
             -- Demoralizing Roar
-            if cast.able.demoralizingRoar() and not debuff.demoralizingRoar.exists("target") then
+            if cast.able.demoralizingRoar() and not debuff.demoralizingRoar.exists(units.dyn10) and getDistance(units.dyn10) < 10 then
                 if cast.demoralizingRoar() then return end
             end
+            -- Swipe
+            if cast.able.swipe() and #enemies.yards5f >= 3 then
+                if cast.swipe() then return end
+            end
             -- Maul
-            if cast.able.maul() then
+            if cast.able.maul() and (not isKnown(spell.swipe) or #enemies.yards5f < 3) then
                 if cast.maul() then return end
             end
         end
@@ -528,22 +517,38 @@ local function runRotation()
     -- Action List - Caster
         local function actionList_Caster()
             -- Moonfire
-            if cast.able.moonfire() and not debuff.moonfire.exists("target") then
+            if cast.able.moonfire() and not debuff.moonfire.exists("target")
+                and (not isKnown(spell.bearForm) or (mana > cast.cost.bearForm() + cast.cost.moonfire() and getDistance(units.dyn30) > 8))
+            then
                 if cast.moonfire() then return end
             end
             -- Wrath
-            if cast.able.wrath() then
+            if cast.able.wrath() and (not isKnown(spell.bearForm) or (mana > cast.cost.bearForm() + cast.cost.wrath() and getDistance(units.dyn30) > 8)) then
                 if cast.wrath() then return end
             end
+            if (mana <= cast.cost.bearForm() + cast.cost.wrath() and mana <= cast.cost.bearForm() + cast.cost.moonfire()) or getDistance(units.dyn30) <= 8 then
+                if isKnown(spell.castForm) then
+                    if cast.catForm() then lastForm = "Caster" return end
+                end
+                if isKnown(spell.bearForm) then
+                    if cast.bearForm() then lastForm = "Caster" return end
+                end
+            end  
         end
     -- Action List - PreCombat
         local function actionList_PreCombat()
             if not inCombat and not IsMounted()~=nil then
                 if isValidUnit("target") --[[and opener == true]] and getDistance("target") < 30 then
+                    -- Wrath
                     if cast.able.wrath("target") and (not buff.bearForm.exists() and not buff.catForm.exists()) and not cast.last.wrath() then
                         if cast.wrath("target") then return end
                     end
-                    if cast.able.claw("target") and (mode.form == 1 and isKnown(spell.catForm)) then
+                    -- Moonfire
+                    if cast.able.moonfire("target") and (not buff.bearForm.exists() and not buff.catForm.exists()) then
+                        if cast.moonfire("target") then return end
+                    end
+                    -- Claw
+                    if cast.able.claw("target") and buff.catForm.exists() then
                         if cast.claw("target") then return end
                     end
                     -- if getDistance("target") < 5 then
@@ -621,13 +626,13 @@ local function runRotation()
                                 if cast.bearForm() then return end
                             end
                         end
-                        if not (buff.bearForm.exists() or buff.catForm.exists()) then --mode.form == 3 or level < 10 or (mode.form == 2 and not isKnown(spell.bearForm)) then
+                        if not (buff.bearForm.exists() or buff.catForm.exists()) then
                             if actionList_Caster() then return end
                         end
-                        if buff.bearForm.exists() then --mode.form == 2 or (mode.form ~= 3 and level < 20) or (mode.form == 1 and not isKnown(spell.catForm)) then
+                        if buff.bearForm.exists() then
                             if actionList_Bear() then return end
                         end
-                        if mode.form == 1 then
+                        if buff.catForm.exists() then
                             if actionList_Cat() then return end
                         end
                     -- end -- End SimC APL

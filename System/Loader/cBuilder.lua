@@ -95,13 +95,14 @@ function br.loader:new(spec,specName)
                 if self.spell[spellType] == nil then self.spell[spellType] = {} end
                 -- Look through spells for spell type
                 for spellRef, spellRanks in pairs(spellTypeTable) do
-                    -- Print("spellRef: "..tostring(spellRef).." | spellRanks: "..tostring(spellRanks))
+                    -- Reverse look through spell ranks
                     for i = #spellRanks.Ranks, 1, -1 do
-                        -- Assign spell to br.player.spell for the spell type
                         local spellID = spellRanks.Ranks[i]
+                        -- Set the highest known spell as the non-ranked spell
                         if self.spell[spellType][spellRef] == nil and (IsSpellKnown(spellID) or i == 1) then
                             self.spell[spellType][spellRef] = spellID
                         end
+                        -- Assign spell to br.player.spell for the spell type rank
                         self.spell[spellType][spellRef..i] = spellID
                         -- Assign active spells to Abilities Subtable and base br.player.spell
                         if not IsPassiveSpell(spellID)
