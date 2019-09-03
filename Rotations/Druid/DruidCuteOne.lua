@@ -96,6 +96,10 @@ local function createOptions()
         section = br.ui:createSection(br.ui.window.profile, "Defensive")
             -- Healthstone
             br.ui:createSpinner(section, "Pot/Stoned",  60,  0,  100,  5,  "|cffFFFFFFHealth Percent to Cast At")
+            -- Entangling Roots
+            br.ui:createCheckbox(section, "Entangling Roots")
+            -- Faerie Fire
+            br.ui:createCheckbox(section, "Faerie Fire")
             -- Healing Touch
             br.ui:createSpinner(section, "Healing Touch", 80, 0, 100, 5, "|cffFFFFFFHealth Percent to Cast At")
             -- Regrowth
@@ -211,6 +215,7 @@ local function runRotation()
         local profileStop
         local range
         local ripDuration = 24
+        local shapeshifted
         local targetDistance
         local useThrash
         -- BR API
@@ -286,7 +291,10 @@ local function runRotation()
         if lastForm == nil then lastForm = "Caster" end
 		if not inCombat and not hastar and profileStop==true then
             profileStop = false
-		end
+        end
+        
+        shapeshifted = buff.direBearForm.exists() or buff.bearForm.exists() or buff.catForm.exists() 
+        or buff.moonkinForm.exists() or buff.travelForm.exists() or buff.aquaticForm.exists()
 
         -- if br.player.potion.agility ~= nil then
         --     if br.player.potion.agility[1] ~= nil then
@@ -332,7 +340,7 @@ local function runRotation()
                 end
             end
         end
-        -- ChatOverlay("Mark of the Wild: Refresh: "..tostring(buff.markOfTheWild.refresh())..", Remain: "..buff.markOfTheWild.remain()..", Duration: "..buff.markOfTheWild.duration())
+        -- ChatOverlay("Demoralizing Roar Exists: "..tostring(debuff.demoralizingRoar.exists(units.dyn10)))
 --------------------
 --- Action Lists ---
 --------------------
@@ -340,6 +348,12 @@ local function runRotation()
 		local function actionList_Extras()
 		    -- Shapeshift Form Management
             if isChecked("Auto Shapeshifts") then --and br.timer:useTimer("debugShapeshift", 0.25) then
+                -- Cancel Form when targeting NPC near you
+                if getDistance("target") < 8 and UnitIsFriend("target","player") and not UnitIsDeadOrGhost("target")
+                    and not UnitIsPlayer("target") and (buff.bearForm.exists() or buff.catForm.exists())
+                then
+                    CancelShapeshiftForm()
+                end
                 -- Return to Last Form
                 if lastForm ~= "Caster" then
                     if lastForm == "Bear" then 
@@ -348,6 +362,13 @@ local function runRotation()
                     if lastForm == "Cat" then
                         if cast.catForm() then lastForm = "Cat" return end
                     end
+                end
+                -- Aquatic Form
+                if cast.able.aquaticForm("player") and not inCombat and swimming
+                    and not buff.aquaticForm.exists() and not buff.prowl.exists() and moving
+                then
+                    -- if GetShapeshiftForm() ~= 0 and not cast.last.travelForm() then RunMacroText("/CancelForm") end
+                    if cast.aquaticForm("player") then debug("Casting Aquatic From [Swimming]") return true end
                 end
 			end -- End Shapeshift Form Management
 		    -- Dummy Test
@@ -368,10 +389,15 @@ local function runRotation()
                 -- if not inCombat or not (buff.catForm.exists() or buff.bearForm.exists()) then
                     -- Entangling Roots
                     if isChecked("Entangling Roots") and cast.able.entanglingRoots() and not cast.last.entanglingRoots() and inCombat 
-                        and GetUnitSpeed(units.dyn30)>0 and getDistance(units.dyn30) > 8 and not debuff.entanglingRoots.exists(units.dyn30)
+                        and GetUnitSpeed("target") > 0 and getDistance("target") > 8 and not UnitIsFacing("target","player") 
+                        and not debuff.entanglingRoots.exists("target")
                     then
                         cancelForm()
-                        if cast.entanglingRoots() then return end
+                        if cast.entanglingRoots("target") then return end
+                    end
+                    -- Faerie Fire
+                    if isChecked("Faerie Fire") and cast.able.faerieFire() and not debuff.faerieFire.exists(units.dyn30) and not shapeshifted then
+                        if cast.faerieFire() then return end
                     end
                     -- Mark of the Wild
                     if getOptionValue("Mark of the Wild") == 2 and cast.able.markOfTheWild() and not inCombat and buff.markOfTheWild.refresh() then
@@ -379,7 +405,7 @@ local function runRotation()
                         if cast.markOfTheWild() then return end
                     end
                     -- Thorns
-                    if getOptionValue("Thorns") == 2 and cast.able.thorns() and inCombat and buff.thorns.refresh() then
+                    if getOptionValue("Thorns") == 2 and cast.able.thorns() and not inCombat and buff.thorns.refresh() then
                         cancelForm()
                         if cast.thorns() then return end
                     end
@@ -437,9 +463,6 @@ local function runRotation()
         end -- End Action List - Opener
     -- Action List - Bear
         local function actionList_Bear()
-            if cast.able.bearForm() and not buff.bearForm.exists() then
-                if cast.bearForm() then return end
-            end
             StartAttack()
             -- Enrage
             if cast.able.enrage() and rage < 10 and getDistance(units.dyn5) < 8 then
@@ -460,12 +483,12 @@ local function runRotation()
         end
     -- Action List - Cat
         local function actionList_Cat()
-            -- if cast.able.catForm() and not buff.catForm.exists() then
-            --     if cast.catForm() then return end
-            -- end
+            -- -- if cast.able.catForm() and not buff.catForm.exists() then
+            -- --     if cast.catForm() then return end
+            -- -- end
             -- -- actions+=/faerie_fire_feral,debuff_only=1
-            -- if cast.able.fairieFireFeral() and not debuff.fairieFireFeral.exists(units.dyn5) then
-            --     if cast.fairieFireFeral() then return end
+            -- if cast.able.faerieFireFeral() and not debuff.faerieFireFeral.exists(units.dyn5) then
+            --     if cast.faerieFireFeral() then return end
             -- end
             -- -- actions+=/tigers_fury,if=energy<=30&!buff.berserk.up
             -- -- actions+=/berserk_cat,if=energy>=80&energy<=90&!buff.tigers_fury.up
@@ -513,6 +536,12 @@ local function runRotation()
             --         if cast.claw() then return end
             --     end
             -- end
+            if cast.able.rip() and comboPoints == 5 then
+                if cast.rip() then return end
+            end
+            if cast.able.claw() and comboPoints < 5 then
+                if cast.claw() then return end
+            end 
         end
     -- Action List - Caster
         local function actionList_Caster()
@@ -526,8 +555,10 @@ local function runRotation()
             if cast.able.wrath() and (not isKnown(spell.bearForm) or (mana > cast.cost.bearForm() + cast.cost.wrath() and getDistance(units.dyn30) > 8)) then
                 if cast.wrath() then return end
             end
-            if (mana <= cast.cost.bearForm() + cast.cost.wrath() and mana <= cast.cost.bearForm() + cast.cost.moonfire()) or getDistance(units.dyn30) <= 8 then
-                if isKnown(spell.castForm) then
+            if not cast.current.wrath() and ((mana <= cast.cost.bearForm() + cast.cost.wrath() and mana <= cast.cost.bearForm() + cast.cost.moonfire())
+                or getDistance(units.dyn30) <= 8)
+            then
+                if isKnown(spell.catForm) then
                     if cast.catForm() then lastForm = "Caster" return end
                 end
                 if isKnown(spell.bearForm) then
@@ -539,12 +570,16 @@ local function runRotation()
         local function actionList_PreCombat()
             if not inCombat and not IsMounted()~=nil then
                 if isValidUnit("target") --[[and opener == true]] and getDistance("target") < 30 then
+                    -- Faerie Fire
+                    if isChecked("Faerie Fire") and cast.able.faerieFire() and not debuff.faerieFire.exists("target") and not shapeshifted then
+                        if cast.faerieFire("target") then return end
+                    end
                     -- Wrath
-                    if cast.able.wrath("target") and (not buff.bearForm.exists() and not buff.catForm.exists()) and not cast.last.wrath() then
+                    if cast.able.wrath("target") and not shapeshifted and not cast.last.wrath() then
                         if cast.wrath("target") then return end
                     end
                     -- Moonfire
-                    if cast.able.moonfire("target") and (not buff.bearForm.exists() and not buff.catForm.exists()) then
+                    if cast.able.moonfire("target") and not shapeshifted then
                         if cast.moonfire("target") then return end
                     end
                     -- Claw
@@ -616,17 +651,7 @@ local function runRotation()
                     ---------------------------
                     -- if getOptionValue("APL Mode") == 1 then
                         -- StartAttack()
-                        if targetDistance < 8 then
-                            if not buff.catForm.exists() and isKnown(spell.catForm) and php > 30 then
-                                SpellStopCasting()
-                                if cast.catForm() then return end
-                            end
-                            if not buff.bearForm.exists() and isKnown(spell.bearForm) and (php <= 30 or not isKnown(spell.catForm)) then
-                                SpellStopCasting()
-                                if cast.bearForm() then return end
-                            end
-                        end
-                        if not (buff.bearForm.exists() or buff.catForm.exists()) then
+                        if not shapeshifted then
                             if actionList_Caster() then return end
                         end
                         if buff.bearForm.exists() then
