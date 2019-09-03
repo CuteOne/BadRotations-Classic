@@ -31,10 +31,12 @@ function br.debug:Print(message)
 		Print(message)
 	end
 end
+
 -- Run
 function br:Run()
 	if br.selectedSpec == nil then br.selectedSpec = br.className end --select(2,GetSpecializationInfo(GetSpecialization())) end
 	-- rc = LibStub("LibRangeCheck-2.0")
+	ThreatLib = LibStub("ThreatClassic-1.0")
 	-- minRange, maxRange = rc:GetRange('target')
 	--[[Init the readers codes (System/Reader.lua)]]
 	-- combat log
@@ -125,7 +127,7 @@ function frame:OnEvent(event, arg1, arg2, arg3, arg4, arg5)
 	-- end
 	-- Load Settings
 	-- Print("Loading Saved BR Data")
-	br.data = deepcopy(brdata)
+	br.data = brdata --deepcopy(brdata)
 	br.dungeon = deepcopy(dungeondata)
 	br.mdungeon = deepcopy(mdungeondata)
 	br.raid = deepcopy(raiddata)
@@ -156,11 +158,11 @@ function frame:OnEvent(event, arg1, arg2, arg3, arg4, arg5)
 			br.mraid = {}
         else
 			-- Save Settings
-			brdata = deepcopy(br.data)
-			dungeondata = deepcopy(br.dungeon)
-			mdungeondata = deepcopy(br.mdungeon)
-			raiddata = deepcopy(br.raid)
-			mraiddata = deepcopy(br.mraid)
+			brdata = br.data --deepcopy(br.data)
+			-- dungeondata = deepcopy(br.dungeon)
+			-- mdungeondata = deepcopy(br.mdungeon)
+			-- raiddata = deepcopy(br.raid)
+			-- mraiddata = deepcopy(br.mraid)
         end
     end
     if event == "PLAYER_ENTERING_WORLD" then
