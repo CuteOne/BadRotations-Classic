@@ -1,5 +1,5 @@
 local MAJOR_VERSION = "ThreatClassicBR-1.0"
-local MINOR_VERSION = 2
+local MINOR_VERSION = 4
 
 if _G.ThreatLib_MINOR_VERSION == nil then _G.ThreatLib_MINOR_VERSION = 0 end
 if MINOR_VERSION > _G.ThreatLib_MINOR_VERSION then _G.ThreatLib_MINOR_VERSION = MINOR_VERSION end
@@ -32,29 +32,29 @@ ThreatLib_funcs[#ThreatLib_funcs + 1] = function()
 		-- Growl
 		[GetSpellInfo(2649)] = {
 			spellIDs		= {2649, 14916, 14917, 14918, 14919, 14920, 14921},
-			-- rankLevel	= {1, 10, 20, 30, 40, 50, 60},
+			rankLevel		= {1, 10, 20, 30, 40, 50, 60},
 			rankThreat		= {50, 65, 110, 170, 240, 320, 415},
-			-- apBaseBonus	= 1235.6,
-			-- apLevelMalus	= 28.14,
-			-- apFactor		= 5.7,
+			apBaseBonus		= 1235.6,
+			apLevelMalus	= 28.14,
+			apFactor		= 5.7,
 		},
 		-- Torment
 		[GetSpellInfo(3716)] = {
 			spellIDs		= {3716, 7809, 7810, 7811, 11774, 11775},
-			-- rankLevel	= {10, 20, 30, 40, 50, 60},
+			rankLevel		= {10, 20, 30, 40, 50, 60},
 			rankThreat		= {45, 75, 125, 215, 300, 395},
-			-- apBaseBonus	= 123,
-			-- apLevelMalus	= 0,
-			-- apFactor		= 0.385,
+			apBaseBonus		= 123,
+			apLevelMalus	= 0,
+			apFactor		= 0.385,
 		},
 		-- Suffering
 		[GetSpellInfo(17735)] = {
 			spellIDs		= {17735, 17750, 17751, 17752},
-			-- rankLevel	= {24, 36, 48, 60},
+			rankLevel		= {24, 36, 48, 60},
 			rankThreat		= {150, 300, 450, 600},
-			-- apBaseBonus	= 124,
-			-- apLevelMalus	= 0,
-			-- apFactor		= 0.547,
+			apBaseBonus		= 124,
+			apLevelMalus	= 0,
+			apFactor		= 0.547,
 		},
 
 		-- I think that Intimidation scales, but I don't have any scaling data on it
@@ -67,18 +67,18 @@ ThreatLib_funcs[#ThreatLib_funcs + 1] = function()
 		-- Unscaling skills
 		-- Scorpid Poison
 		[GetSpellInfo(24640)] = {
-			spellIDs 	= {24640, 24583, 24586, 24587},
-			rankThreat 	= {5, 5, 5, 5},
+			spellIDs	= {24640, 24583, 24586, 24587},
+			rankThreat	= {5, 5, 5, 5},
 		},
 		-- Cower
 		[GetSpellInfo(1742)] = {
-			spellIDs 	= {1742, 1753, 1754, 1755, 1756, 16697},
-			rankThreat 	= {-30, -55, -85, -125, -175, -225},
+			spellIDs	= {1742, 1753, 1754, 1755, 1756, 16697},
+			rankThreat	= {-30, -55, -85, -125, -175, -225},
 		},
 		-- Soothing Kiss
 		[GetSpellInfo(6360)] = {
-			spellIDs 	= {6360, 7813, 11784, 11785},
-			rankThreat = {-45, -75, -127, -165}
+			spellIDs	= {6360, 7813, 11784, 11785},
+			rankThreat	= {-45, -75, -127, -165}
 		},
 	}
 
@@ -114,8 +114,8 @@ ThreatLib_funcs[#ThreatLib_funcs + 1] = function()
 	end
 
 	function Pet:ScanPetSkillRanks()
-		for i = 1,10 do
-			local name, rank = GetPetActionInfo(i)
+		for i = 1, 10 do
+			local name, _, _, _, _ , _, rank = GetPetActionInfo(i)
 			if skillData[name] then
 				self.skillRanks[name] = rank
 			end

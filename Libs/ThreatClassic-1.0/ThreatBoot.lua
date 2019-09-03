@@ -1,5 +1,5 @@
 local MAJOR_VERSION = "ThreatClassicBR-1.0"
-local MINOR_VERSION = 2
+local MINOR_VERSION = 4
 
 if not _G.ThreatLib_MINOR_VERSION or MINOR_VERSION > _G.ThreatLib_MINOR_VERSION then
 	_G.ThreatLib_MINOR_VERSION = MINOR_VERSION

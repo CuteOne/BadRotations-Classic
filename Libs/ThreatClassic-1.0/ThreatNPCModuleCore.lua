@@ -1,5 +1,5 @@
 local MAJOR_VERSION = "ThreatClassicBR-1.0"
-local MINOR_VERSION = 2
+local MINOR_VERSION = 4
 
 if MINOR_VERSION > _G.ThreatLib_MINOR_VERSION then
 	_G.ThreatLib_MINOR_VERSION = MINOR_VERSION
@@ -110,7 +110,7 @@ local type = _G.type
 local select = _G.select
 local error = _G.error
 local InCombatLockdown = _G.InCombatLockdown
--- local UnitGUID = _G.UnitGUID
+local UnitGUID = _G.UnitGUID
 local tostring = _G.tostring
 
 ThreatLibNPCModuleCore.modulePrototype = {}
@@ -325,6 +325,9 @@ function ThreatLibNPCModuleCore:COMBAT_LOG_EVENT_UNFILTERED(event, ...)
 	if not InCombatLockdown() then return end
 
 	local timestamp, subEvent, _, sourceGUID, sourceName, sourceFlags, sourceRaidFlags, destGUID, destName, destFlags, destRaidFlags, spellId, spellName = CombatLogGetCurrentEventInfo()
+
+	-- spellId = ThreatLib.Classic and ThreatLib:GetNPCSpellID(spellName) or spellId
+	spellId = ThreatLib:GetNPCSpellID(spellName) or spellId
 
 	if subEvent == "SPELL_DAMAGE" and bit_band(sourceFlags, REACTION_ATTACKABLE) ~= 0 and bit_band(sourceFlags, COMBATLOG_OBJECT_TYPE_NPC) == COMBATLOG_OBJECT_TYPE_NPC then
 		local unitID = nil
