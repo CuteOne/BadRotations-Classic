@@ -482,10 +482,10 @@ function getCastTime(spellID)
 	return castTime
 end
 function getCastTimeRemain(unit)
-	if UnitCastingInfo(unit) ~= nil then
-		return select(5,UnitCastingInfo(unit))/1000 - GetTime()
-	elseif UnitChannelInfo(unit) ~= nil then
-		return select(5,UnitChannelInfo(unit))/1000 - GetTime()
+	if CastingInfo(unit) ~= nil then
+		return select(5,CastingInfo(unit))/1000 - GetTime()
+	elseif ChannelInfo(unit) ~= nil then
+		return select(5,ChannelInfo(unit))/1000 - GetTime()
 	else
 		return 0
 	end
@@ -493,8 +493,8 @@ end
 -- if isCasting() == true then
 function castingUnit(Unit)
 	if Unit == nil then Unit = "player" end
-	if UnitCastingInfo(Unit) ~= nil
-		or UnitChannelInfo(Unit) ~= nil
+	if CastingInfo(Unit) ~= nil
+		or ChannelInfo(Unit) ~= nil
 		or (GetSpellCooldown(61304) ~= nil and GetSpellCooldown(61304) > 0.001) then
 		return true
 	else
@@ -504,10 +504,11 @@ end
 -- if isCastingSpell(12345) == true then
 function isCastingSpell(spellID,unit)
 	if unit == nil then unit = "player" end
+	if unit ~= "player" then return false end
 	local spellName = select(1,GetSpellInfo(spellID))
-	local spellCasting = select(1,UnitCastingInfo(unit))
+	local spellCasting = select(1,CastingInfo(unit))
 	if spellCasting == nil then
-		spellCasting = select(1,UnitChannelInfo(unit))
+		spellCasting = select(1,ChannelInfo(unit))
 	end
 	if tostring(spellCasting) == tostring(spellName) then
 		return true
@@ -517,8 +518,10 @@ function isCastingSpell(spellID,unit)
 end
 -- if isCasting(12345,"target") then
 function isCasting(SpellID,Unit)
-	if GetUnitIsVisible(Unit) and UnitCastingInfo(Unit) then
-		if UnitCastingInfo(Unit) == GetSpellInfo(SpellID) then
+	if unit == nil then unit = "player" end
+	if unit ~= "player" then return false end
+	if GetUnitIsVisible(Unit) and CastingInfo(Unit) then
+		if CastingInfo(Unit) == GetSpellInfo(SpellID) then
 			return true
 		end
 	else
@@ -528,9 +531,10 @@ end
 -- if isCastingSpell(12345) == true then
 function isUnitCasting(unit)
 	if unit == nil then unit = "player" end
-	local spellCasting = UnitCastingInfo(unit)
+	if unit ~= "player" then return false end
+	local spellCasting = CastingInfo(unit)
 	if spellCasting == nil then
-		spellCasting = UnitChannelInfo(unit)
+		spellCasting = ChannelInfo(unit)
 	end
 	if spellCasting ~= nil then
 		return true

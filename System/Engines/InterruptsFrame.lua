@@ -64,7 +64,7 @@ local Print = Print
 --local ObjectExists,ObjectPosition = ObjectExists,ObjectPosition
 local select = select
 local tinsert,tremove,sort = tinsert,tremove,table.sort
-local UnitCastingInfo,UnitChannelInfo = UnitCastingInfo,UnitChannelInfo
+local CastingInfo,ChannelInfo = CastingInfo,ChannelInfo
 local interruptCandidates = interruptCandidates
 local pcall = pcall
 -- no external access after here
@@ -320,12 +320,12 @@ end
 -- returns name of cast/channel and casting("cast") or channelling("chan") /dump getCastingInfo("target")
 function getCastingInfo(unit)
 	-- if its a spell we return casting informations
-	if UnitCastingInfo(unit) ~= nil then
-		local unitCastName,_,_,unitCastStart,unitCastEnd,_,unitCastID,unitCastNotInteruptible = UnitCastingInfo(unit)
+	if CastingInfo(unit) ~= nil then
+		local unitCastName,_,_,unitCastStart,unitCastEnd,_,unitCastID,unitCastNotInteruptible = CastingInfo(unit)
 		return unitCastName,getCastLenght(unitCastStart,unitCastEnd),unitCastEnd*0.001,unitCastNotInteruptible,"cast"
 			-- if its achannel we return channel info
-	elseif UnitChannelInfo(unit) ~= nil then
-		local unitCastName,_,_,unitCastStart,unitCastEnd,_,unitCastID,unitCastNotInteruptible = UnitChannelInfo(unit)
+	elseif ChannelInfo(unit) ~= nil then
+		local unitCastName,_,_,unitCastStart,unitCastEnd,_,unitCastID,unitCastNotInteruptible = ChannelInfo(unit)
 		return unitCastName,getCastLenght(unitCastStart,unitCastEnd),unitCastEnd*0.001,unitCastNotInteruptible,"chan"
 			-- otherwise we return bad dummy vars
 	else

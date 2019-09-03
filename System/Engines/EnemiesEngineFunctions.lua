@@ -257,7 +257,7 @@ end
 			if GetObjectExists(crowdControlUnit.unit) then
 				-- is in the list of candidates
 				if (crowdControlUnit.buff == nil or UnitBuffID(Unit,crowdControlUnit.buff))
-						and (crowdControlUnit.spell == nil or getCastingInfo(Unit) == GetSpellInfo(crowdControlUnit.spell))
+						and (crowdControlUnit.spell == nil or (Unit == "player" and getCastingInfo(Unit) == GetSpellInfo(crowdControlUnit.spell)))
 				then -- doesnt have more requirements or requirements are met
 					return true
 				end

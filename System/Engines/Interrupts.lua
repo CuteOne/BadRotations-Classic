@@ -26,10 +26,10 @@ function shouldStopCasting(Spell)
 			160838,-- Disrupting Roar (Hans'gar and Franzok)
 		}
 		-- find casting informations
-		if UnitCastingInfo("boss1") then
-			Boss1Cast,_,_,_,Boss1CastEnd = UnitCastingInfo("boss1")
-		elseif UnitChannelInfo("boss1") then
-			Boss1Cast,_,_,_,Boss1CastEnd = UnitChannelInfo("boss1")
+		if CastingInfo("boss1") then
+			Boss1Cast,_,_,_,Boss1CastEnd = CastingInfo("boss1")
+		elseif ChannelInfo("boss1") then
+			Boss1Cast,_,_,_,Boss1CastEnd = ChannelInfo("boss1")
 		else
 			return false
 		end

@@ -1,8 +1,9 @@
 function castInterrupt(SpellID,Percent,Unit)
 	if Unit == nil then Unit = "target" end
+	if unit ~= "player" then return false end
 	if GetObjectExists(Unit) then
-		local castName, _, _, castStartTime, castEndTime, _, _, castInterruptable = UnitCastingInfo(Unit)
-		local channelName, _, _, channelStartTime, channelEndTime, _, channelInterruptable = UnitChannelInfo(Unit)
+		local castName, _, _, castStartTime, castEndTime, _, _, castInterruptable = CastingInfo(Unit)
+		local channelName, _, _, channelStartTime, channelEndTime, _, channelInterruptable = ChannelInfo(Unit)
 		-- first make sure we will be able to cast the spellID
 		if canCast(SpellID,false,false) == true then
 			-- make sure we cover melee range
@@ -54,6 +55,7 @@ end
 -- canInterrupt("target",20)
 function canInterrupt(unit,percentint)
 	unit = unit or "target"
+	if unit ~= "player" then return false end
 	-- M+ Affix: Beguiling (Prevents Interrupt) - Queen's Decree: Unstoppable buff
 	if UnitBuffID(unit,302417) ~= nil then return false end
 	local interruptTarget = getOptionValue("Interrupt Target")
@@ -74,16 +76,16 @@ function canInterrupt(unit,percentint)
 		and not UnitIsDeadOrGhost(unit)
 	then
 		-- Get Cast/Channel Info
-		if select(5,UnitCastingInfo(unit)) and not select(8,UnitCastingInfo(unit)) then --Get spell cast time
-			castStartTime = select(4,UnitCastingInfo(unit))
-			castEndTime = select(5,UnitCastingInfo(unit))
-			interruptID = select(9,UnitCastingInfo(unit))
+		if select(5,CastingInfo(unit)) and not select(8,CastingInfo(unit)) then --Get spell cast time
+			castStartTime = select(4,CastingInfo(unit))
+			castEndTime = select(5,CastingInfo(unit))
+			interruptID = select(9,CastingInfo(unit))
 			interruptable = true
 			castType = "spellcast"
-		elseif select(5,UnitChannelInfo(unit)) and not select(7,UnitChannelInfo(unit)) then -- Get spell channel time
-			castStartTime = select(4,UnitChannelInfo(unit))
-			castEndTime = select(5,UnitChannelInfo(unit))
-			interruptID = select(8,UnitChannelInfo(unit))
+		elseif select(5,ChannelInfo(unit)) and not select(7,ChannelInfo(unit)) then -- Get spell channel time
+			castStartTime = select(4,ChannelInfo(unit))
+			castEndTime = select(5,ChannelInfo(unit))
+			interruptID = select(8,ChannelInfo(unit))
 			interruptable = true
 			castType = "spellchannel"
 		end
