@@ -172,9 +172,6 @@ function canDispel(Unit, spellID)
 		-- Dispel Magic
 		if spellID == 528 then typesList = {"Magic"} end
 	end
-	if ClassNum == 6 then --Death Knight
-		typesList = {}
-	end
 	if ClassNum == 7 then --Shaman
 		-- Cleanse Spirit
 		if spellID == 51886 then typesList = {"Curse"} end
@@ -190,35 +187,21 @@ function canDispel(Unit, spellID)
 	if ClassNum == 9 then --Warlock
 		typesList = {}
 	end
-	if ClassNum == 10 then --Monk
-		-- Detox (MW)
-		--if GetSpecialization() == 2 then
-		if spellID == 115450 then typesList = {"Poison", "Disease", "Magic"} end
-		-- Detox (WW or BM)
-		--else
-		if spellID == 218164 then typesList = {"Poison", "Disease"}	end
-	--end
-	-- Diffuse Magic
-	-- if spellID == 122783 then typesList = { "Magic" } end
-	end
 	if ClassNum == 11 then --Druid
-		-- Remove Corruption
-		if spellID == 2782 then	typesList = {"Poison", "Curse"}	end
-		-- Nature's Cure
-		if spellID == 88423 then typesList = {"Poison", "Curse", "Magic"} end
-		-- Symbiosis: Cleanse
-		if spellID == 122288 then typesList = {"Poison", "Disease"}	end
-		-- Soothe
-		if spellID == 2908 then	typesList = {""}
-		end
-	end
-	if ClassNum == 12 then --Demon Hunter
-		-- Consume Magic
-		if spellID == 278326 then typesList = {"Magic"}	end
-	end
-	if br.player.race == "BloodElf" then --Blood Elf
-		-- Arcane Torrent
-		if spellID == select(7, GetSpellInfo(GetSpellInfo(69179))) then typesList = {"Magic"} end
+		-- Abolish Poison
+		if spellID == 2893 then typesList = {"Poison"} end
+		-- Cure Poison
+		if spellID == 8946 then typesList = {"Poison"} end
+		-- Remove Curse
+		if spellID == 2782 then typesList = ("Curse") end
+		-- -- Remove Corruption
+		-- if spellID == 2782 then typesList = {"Poison", "Curse"}	end
+		-- -- Nature's Cure
+		-- if spellID == 88423 then typesList = {"Poison", "Curse", "Magic"} end
+		-- -- Symbiosis: Cleanse
+		-- if spellID == 122288 then typesList = {"Poison", "Disease"}	end
+		-- -- Soothe
+		-- if spellID == 2908 then typesList = {""} end
 	end
 	local function ValidType(debuffType)
 		local typeCheck = false
