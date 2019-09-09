@@ -375,7 +375,7 @@ function isTargeting(Unit, MatchUnit)
 	if MatchUnit == nil then
 		MatchUnit = "player"
 	end
-	return UnitTarget(GetUnit(Unit)) == ObjectPointer(MatchUnit)
+	return UnitTarget(GetUnit(Unit)) == ObjectPointer(MatchUnit) and not UnitIsPlayer(Unit)
 end
 
 function enemyListCheck(Unit)
@@ -415,7 +415,7 @@ function isValidUnit(Unit)
 		local distanceToTarget = getDistance("target",Unit)
 		local distanceToPlayer = getDistance("player",Unit)
 		local inCombat = UnitAffectingCombat("player") or (GetObjectExists("pet") and UnitAffectingCombat("pet"))
-		local unitThreat = targeting or isInProvingGround() or burnUnit or threatBypassUnit or hasThreat(Unit)
+		local unitThreat = targeting or isInProvingGround() or burnUnit or threatBypassUnit or (hasThreat(Unit) and not UnitIsPlayer(Unit))
 		return unitThreat 
 			or ((not instance and (playerTarget or (distanceToTarget < 8 and (reaction < 4 or isDummy())))) 
 			or (instance and (#br.friend == 1 or (UnitAffectingCombat(Unit) and distanceToPlayer < 40)))) -- (not hasThreat and (
